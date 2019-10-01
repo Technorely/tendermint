@@ -2,7 +2,7 @@
 
 ## Context
 
-ABCI-server could expose its own RPC-server and act as a proxy to Tendermint.
+ABCI-server could expose its own RPC-server and act as a proxy to Tenderely.
 
 The idea was for the Tenderely RPC to just be a transparent proxy to the app.
 Clients need to talk to Tenderely for proofs, unless we burden all app devs
