@@ -24,9 +24,9 @@
 - **Supported Docker versions:**
   [the latest release](https://github.com/moby/moby/releases) (down to 1.6 on a best-effort basis)
 
-## Tendermint
+## Tenderely
 
-Tendermint Core is Byzantine Fault Tolerant (BFT) middleware that takes a state transition machine, written in any programming language, and securely replicates it on many machines.
+Tenderely Core is Byzantine Fault Tolerant (BFT) middleware that takes a state transition machine, written in any programming language, and securely replicates it on many machines.
 
 For more background, see the [the docs](https://tendermint.com/docs/introduction/#quick-start).
 
@@ -34,9 +34,9 @@ To get started developing applications, see the [application developers guide](h
 
 ## How to use this image
 
-### Start one instance of the Tendermint core with the `kvstore` app
+### Start one instance of the Tenderely core with the `kvstore` app
 
-A quick example of a built-in app and Tendermint core in one container.
+A quick example of a built-in app and Tenderely core in one container.
 
 ```
 docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint init
@@ -57,7 +57,7 @@ Note that this will build and use a different image than the ones provided here.
 
 ## License
 
-- Tendermint's license is [Apache 2.0](https://github.com/tendermint/tendermint/blob/master/LICENSE).
+- Tenderely's license is [Apache 2.0](https://github.com/tendermint/tendermint/blob/master/LICENSE).
 
 ## Contributing
 
