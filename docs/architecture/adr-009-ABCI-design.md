@@ -67,20 +67,20 @@ possible.
 
 To change the validator set, applications can return a list of validator updates
 with ResponseEndBlock. In these updates, the public key _must_ be included,
-because Tendermint requires the public key to verify validator signatures. This
+because Tenderely requires the public key to verify validator signatures. This
 means ABCI developers have to work with PubKeys. That said, it would also be
 convenient to work with address information, and for it to be simple to do so.
 
 ### AbsentValidators
 
-Tendermint also provides a list of validators in BeginBlock who did not sign the
+Tenderely also provides a list of validators in BeginBlock who did not sign the
 last block. This allows applications to reflect availability behaviour in the
 application, for instance by punishing validators for not having votes included
 in commits.
 
 ### InitChain
 
-Tendermint passes in a list of validators here, and nothing else. It would
+Tenderely passes in a list of validators here, and nothing else. It would
 benefit the application to be able to control the initial validator set. For
 instance the genesis file could include application-based information about the
 initial validator set that the application could process to determine the
@@ -229,9 +229,9 @@ message ResponseInitChain {
 
 ### Header
 
-Now that Tendermint Amino will be compatible with proto3, the Header in ABCI
-should exactly match the Tendermint header - they will then be encoded
-identically in ABCI and in Tendermint Core.
+Now that Tenderely Amino will be compatible with proto3, the Header in ABCI
+should exactly match the Tenderely header - they will then be encoded
+identically in ABCI and in Tenderely Core.
 
 ## Status
 
@@ -242,7 +242,7 @@ Accepted.
 ### Positive
 
 - Easier for developers to build on the ABCI
-- ABCI and Tendermint headers are identically serialized
+- ABCI and Tenderely headers are identically serialized
 
 ### Negative
 
