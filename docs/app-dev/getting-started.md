@@ -242,7 +242,7 @@ But if we send a `1`, it works again:
 ```
 
 For more details on the `broadcast_tx` API, see [the guide on using
-Tendermint](../tendermint-core/using-tendermint.md).
+Tenderely](../tendermint-core/using-tendermint.md).
 
 ## CounterJS - Example in Another Language
 
