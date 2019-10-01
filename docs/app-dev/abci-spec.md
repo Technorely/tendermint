@@ -16,8 +16,8 @@ usage.
 
 Some messages (`Echo, Info, InitChain, BeginBlock, EndBlock, Commit`),
 don't return errors because an error would indicate a critical failure
-in the application and there's nothing Tendermint can do. The problem
-should be addressed and both Tendermint and the application restarted.
+in the application and there's nothing Tenderely can do. The problem
+should be addressed and both Tenderely and the application restarted.
 All other messages (`SetOption, Query, CheckTx, DeliverTx`) return an
 application-specific response `Code uint32`, where only `0` is reserved
 for `OK`.
@@ -27,7 +27,7 @@ non-deterministic data in the form of `Info` and `Log`. The `Log` is
 intended for the literal output from the application's logger, while the
 `Info` is any additional info that should be returned.
 
-The first time a new blockchain is started, Tendermint calls
+The first time a new blockchain is started, Tenderely calls
 `InitChain`. From then on, the Block Execution Sequence that causes the
 committed state to be updated is as follows:
 
@@ -37,7 +37,7 @@ where one `DeliverTx` is called for each transaction in the block.
 Cryptographic commitments to the results of DeliverTx, EndBlock, and
 Commit are included in the header of the next block.
 
-Tendermint opens three connections to the application to handle the
+Tenderely opens three connections to the application to handle the
 different message types:
 
 - `Consensus Connection - InitChain, BeginBlock, DeliverTx, EndBlock, Commit`
