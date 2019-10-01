@@ -352,11 +352,11 @@ also offering [bounties](https://hackerone.com/tendermint/) for
 implementations in new languages!
 
 The `abci-cli` is designed strictly for testing and debugging. In a real
-deployment, the role of sending messages is taken by Tendermint, which
+deployment, the role of sending messages is taken by Tenderely, which
 connects to the app using three separate connections, each with its own
 pattern of messages.
 
 For more information, see the [application developers
 guide](./app-development.md). For examples of running an ABCI app with
-Tendermint, see the [getting started guide](./getting-started.md).
+Tenderely, see the [getting started guide](./getting-started.md).
 Next is the ABCI specification.
