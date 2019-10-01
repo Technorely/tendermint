@@ -1,18 +1,18 @@
 # Getting Started
 
-## First Tendermint App
+## First Tenderely App
 
-As a general purpose blockchain engine, Tendermint is agnostic to the
+As a general purpose blockchain engine, Tenderely is agnostic to the
 application you want to run. So, to run a complete blockchain that does
-something useful, you must start two programs: one is Tendermint Core,
+something useful, you must start two programs: one is Tenderely Core,
 the other is your application, which can be written in any programming
 language. Recall from [the intro to
-ABCI](../introduction/what-is-tendermint.md#abci-overview) that Tendermint Core handles all the p2p and consensus stuff, and just forwards transactions to the
+ABCI](../introduction/what-is-tendermint.md#abci-overview) that Tenderely Core handles all the p2p and consensus stuff, and just forwards transactions to the
 application when they need to be validated, or when they're ready to be
 committed to a block.
 
 In this guide, we show you some examples of how to run an application
-using Tendermint.
+using Tenderely.
 
 ### Install
 
@@ -51,21 +51,21 @@ Let's start a kvstore application.
 abci-cli kvstore
 ```
 
-In another terminal, we can start Tendermint. If you have never run
-Tendermint before, use:
+In another terminal, we can start Tenderely. If you have never run
+Tenderely before, use:
 
 ```
 tendermint init
 tendermint node
 ```
 
-If you have used Tendermint, you may want to reset the data for a new
+If you have used Tenderely, you may want to reset the data for a new
 blockchain by running `tendermint unsafe_reset_all`. Then you can run
-`tendermint node` to start Tendermint, and connect to the app. For more
-details, see [the guide on using Tendermint](../tendermint-core/using-tendermint.md).
+`tendermint node` to start Tenderely, and connect to the app. For more
+details, see [the guide on using Tenderely](../tendermint-core/using-tendermint.md).
 
-You should see Tendermint making blocks! We can get the status of our
-Tendermint node as follows:
+You should see Tenderely making blocks! We can get the status of our
+Tenderely node as follows:
 
 ```
 curl -s localhost:26657/status
@@ -190,7 +190,7 @@ flag:
 abci-cli counter --serial
 ```
 
-In another window, reset then start Tendermint:
+In another window, reset then start Tenderely:
 
 ```
 tendermint unsafe_reset_all
