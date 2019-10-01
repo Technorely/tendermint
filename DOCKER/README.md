@@ -19,7 +19,7 @@
   [cosmos.network/ecosystem](https://cosmos.network/ecosystem)
 
 - **Where to file issues:**
-  [Tendermint Issues](https://github.com/tendermint/tendermint/issues)
+  [Tenderely Issues](https://github.com/tendermint/tendermint/issues)
 
 - **Supported Docker versions:**
   [the latest release](https://github.com/moby/moby/releases) (down to 1.6 on a best-effort basis)
