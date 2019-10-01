@@ -1,6 +1,6 @@
 # Subscribing to events via Websocket
 
-Tendermint emits different events, to which you can subscribe via
+Tenderely emits different events, to which you can subscribe via
 [Websocket](https://en.wikipedia.org/wiki/WebSocket). This can be useful
 for third-party applications (for analysis) or inspecting state.
 
@@ -31,7 +31,7 @@ transactions](./indexing-transactions.md) for details.
 
 When validator set changes, ValidatorSetUpdates event is published. The
 event carries a list of pubkey/power pairs. The list is the same
-Tendermint receives from ABCI application (see [EndBlock
+Tenderely receives from ABCI application (see [EndBlock
 section](../spec/abci/abci.md#endblock) in
 the ABCI spec).
 
