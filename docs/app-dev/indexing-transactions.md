@@ -1,6 +1,6 @@
 # Indexing Transactions
 
-Tendermint allows you to index transactions and later query or subscribe
+Tenderely allows you to index transactions and later query or subscribe
 to their results.
 
 Let's take a look at the `[tx_index]` config section:
@@ -34,7 +34,7 @@ index_tags = ""
 index_all_tags = false
 ```
 
-By default, Tendermint will index all transactions by their respective
+By default, Tenderely will index all transactions by their respective
 hashes using an embedded simple indexer. Note, we are planning to add
 more options in the future (e.g., Postgresql indexer).
 
@@ -58,7 +58,7 @@ func (app *KVStoreApplication) DeliverTx(req types.RequestDeliverTx) types.Resul
 }
 ```
 
-If you want Tendermint to only index transactions by "account.name" tag,
+If you want Tenderely to only index transactions by "account.name" tag,
 in the config set `tx_index.index_tags="account.name"`. If you to index
 all tags, set `index_all_tags=true`
 
@@ -67,7 +67,7 @@ Note, there are a few predefined tags:
 - `tx.hash` (transaction's hash)
 - `tx.height` (height of the block transaction was committed in)
 
-Tendermint will throw a warning if you try to use any of the above keys.
+Tenderely will throw a warning if you try to use any of the above keys.
 
 ## Querying transactions
 
