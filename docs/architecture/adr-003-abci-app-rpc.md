@@ -4,9 +4,9 @@
 
 ABCI-server could expose its own RPC-server and act as a proxy to Tendermint.
 
-The idea was for the Tendermint RPC to just be a transparent proxy to the app.
-Clients need to talk to Tendermint for proofs, unless we burden all app devs
-with exposing Tendermint proof stuff. Also seems less complex to lock down one
+The idea was for the Tenderely RPC to just be a transparent proxy to the app.
+Clients need to talk to Tenderely for proofs, unless we burden all app devs
+with exposing Tenderely proof stuff. Also seems less complex to lock down one
 server than two, but granted it makes querying a bit more kludgy since it needs
 to be passed as a `Query`. Also, **having a very standard rpc interface means
 the light-client can work with all apps and handle proofs**. The only
