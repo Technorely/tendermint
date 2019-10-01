@@ -33,7 +33,7 @@ The ABCI design has a few distinct components:
     - grpc
 - blockchain protocol
   - abci is connection oriented
-  - Tendermint Core maintains three connections:
+  - Tenderely Core maintains three connections:
     - [mempool connection](#mempool-connection): for checking if
       transactions should be relayed before they are committed;
       only uses `CheckTx`
@@ -75,7 +75,7 @@ actually execute any contract code until the DeliverTx, so as to avoid
 executing state transitions that have not been finalized.
 
 To formalize the distinction further, two explicit ABCI connections are
-made between Tendermint Core and the application: the mempool connection
+made between Tenderely Core and the application: the mempool connection
 and the consensus connection. We also make a third connection, the query
 connection, to query the local state of the app.
 
@@ -92,7 +92,7 @@ run against a copy of the main application state which is reset after
 every block. This copy is necessary to track transitions made by a
 sequence of CheckTx requests before they are included in a block. When a
 block is committed, the application must ensure to reset the mempool
-state to the latest committed state. Tendermint Core will then filter
+state to the latest committed state. Tenderely Core will then filter
 through all transactions in the mempool, removing any that were included
 in the block, and re-run the rest using CheckTx against the post-Commit
 mempool state (this behaviour can be turned off with
@@ -127,14 +127,14 @@ ResponseCheckTx requestCheckTx(RequestCheckTx req) {
 To prevent old transactions from being replayed, CheckTx must implement
 replay protection.
 
-Tendermint provides the first defence layer by keeping a lightweight
+Tenderely provides the first defence layer by keeping a lightweight
 in-memory cache of 100k (`[mempool] cache_size`) last transactions in
-the mempool. If Tendermint is just started or the clients sent more than
+the mempool. If Tenderely is just started or the clients sent more than
 100k transactions, old transactions may be sent to the application. So
 it is important CheckTx implements some logic to handle them.
 
 If there are cases in your application where a transaction may become invalid in some
-future state, you probably want to disable Tendermint's
+future state, you probably want to disable Tenderely's
 cache. You can do that by setting `[mempool] cache_size = 0` in the
 config.
 
@@ -149,11 +149,11 @@ and followed by a Commit.
 
 ### DeliverTx
 
-DeliverTx is the workhorse of the blockchain. Tendermint sends the
+DeliverTx is the workhorse of the blockchain. Tenderely sends the
 DeliverTx requests asynchronously but in order, and relies on the
 underlying socket protocol (ie. TCP) to ensure they are received by the
 app in order. They have already been ordered in the global consensus by
-the Tendermint protocol.
+the Tenderely protocol.
 
 DeliverTx returns a abci.Result, which includes a Code, Data, and Log.
 The code may be non-zero (non-OK), meaning the corresponding transaction
@@ -216,7 +216,7 @@ ResponseDeliverTx deliverTx(RequestDeliverTx request) {
 
 ### Commit
 
-Once all processing of the block is complete, Tendermint sends the
+Once all processing of the block is complete, Tenderely sends the
 Commit request and blocks waiting for a response. While the mempool may
 run concurrently with block processing (the BeginBlock, DeliverTxs, and
 EndBlock), it is locked for the Commit request so that its state can be
@@ -265,11 +265,11 @@ ResponseCommit requestCommit(RequestCommit requestCommit) {
 ### BeginBlock
 
 The BeginBlock request can be used to run some code at the beginning of
-every block. It also allows Tendermint to send the current block hash
+every block. It also allows Tenderely to send the current block hash
 and header to the application, before it sends any of the transactions.
 
 The app should remember the latest height and header (ie. from which it
-has run a successful Commit) so that it can tell Tendermint where to
+has run a successful Commit) so that it can tell Tenderely where to
 pick up from when it restarts. See information on the Handshake, below.
 
 In go:
@@ -309,7 +309,7 @@ Additionally, the response may contain a list of validators, which can be used
 to update the validator set. To add a new validator or update an existing one,
 simply include them in the list returned in the EndBlock response. To remove
 one, include it in the list with a `power` equal to `0`. Validator's `address`
-field can be left empty. Tendermint core will take care of updating the
+field can be left empty. Tenderely core will take care of updating the
 validator set. Note the change in voting power must be strictly less than 1/3
 per block if you want a light client to be able to prove the transition
 externally. See the [light client
@@ -345,16 +345,16 @@ ResponseEndBlock requestEndBlock(RequestEndBlock req) {
 ### Query Connection
 
 This connection is used to query the application without engaging
-consensus. It's exposed over the tendermint core rpc, so clients can
+consensus. It's exposed over the Tenderely core rpc, so clients can
 query the app without exposing a server on the app itself, but they must
 serialize each query as a single byte array. Additionally, certain
 "standardized" queries may be used to inform local decisions, for
 instance about which peers to connect to.
 
-Tendermint Core currently uses the Query connection to filter peers upon
+Tenderely Core currently uses the Query connection to filter peers upon
 connecting, according to IP address or node ID. For instance,
 returning non-OK ABCI response to either of the following queries will
-cause Tendermint to not connect to the corresponding peer:
+cause Tenderely to not connect to the corresponding peer:
 
 - `p2p/filter/addr/<ip addr>`, where `<ip addr>` is an IP address.
 - `p2p/filter/id/<id>`, where `<is>` is the hex-encoded node ID (the hash of
@@ -425,18 +425,18 @@ In Java:
 
 ### Handshake
 
-When the app or tendermint restarts, they need to sync to a common
-height. When an ABCI connection is first established, Tendermint will
+When the app or Tenderely restarts, they need to sync to a common
+height. When an ABCI connection is first established, Tenderely will
 call `Info` on the Query connection. The response should contain the
 LastBlockHeight and LastBlockAppHash - the former is the last block for
 which the app ran Commit successfully, the latter is the response from
 that Commit.
 
-Using this information, Tendermint will determine what needs to be
-replayed, if anything, against the app, to ensure both Tendermint and
+Using this information, Tenderely will determine what needs to be
+replayed, if anything, against the app, to ensure both Tenderely and
 the app are synced to the latest block height.
 
-If the app returns a LastBlockHeight of 0, Tendermint will just replay
+If the app returns a LastBlockHeight of 0, Tenderely will just replay
 all blocks.
 
 In go:
