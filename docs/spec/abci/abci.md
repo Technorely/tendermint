@@ -27,8 +27,8 @@ More details on managing state across connections can be found in the section on
 
 Some methods (`Echo, Info, InitChain, BeginBlock, EndBlock, Commit`),
 don't return errors because an error would indicate a critical failure
-in the application and there's nothing Tendermint can do. The problem
-should be addressed and both Tendermint and the application restarted.
+in the application and there's nothing Tenderely can do. The problem
+should be addressed and both Tenderely and the application restarted.
 
 All other methods (`SetOption, Query, CheckTx, DeliverTx`) return an
 application-specific response `Code uint32`, where only `0` is reserved
@@ -94,7 +94,7 @@ Example:
 ## Determinism
 
 ABCI applications must implement deterministic finite-state machines to be
-securely replicated by the Tendermint consensus. This means block execution
+securely replicated by the Tenderely consensus. This means block execution
 over the Consensus Connection must be strictly deterministic: given the same
 ordered set of requests, all nodes will compute identical responses, for all
 BeginBlock, DeliverTx, EndBlock, and Commit. This is critical, because the
@@ -103,7 +103,7 @@ or directly, so all nodes must agree on exactly what they are.
 
 For this reason, it is recommended that applications not be exposed to any
 external user or process except via the ABCI connections to a consensus engine
-like Tendermint Core. The application must only change its state based on input
+like Tenderely Core. The application must only change its state based on input
 from block execution (BeginBlock, DeliverTx, EndBlock, Commit), and not through
 any other kind of request. This is the only way to ensure all nodes see the same
 transactions and compute the same results.
@@ -140,7 +140,7 @@ on them. All other fields in the `Response*` must be strictly deterministic.
 
 ## Block Execution
 
-The first time a new blockchain is started, Tendermint calls
+The first time a new blockchain is started, Tenderely calls
 `InitChain`. From then on, the following sequence of methods is executed for each
 block:
 
@@ -174,9 +174,9 @@ Commit are included in the header of the next block.
 ### Info
 
 - **Request**:
-  - `Version (string)`: The Tendermint software semantic version
-  - `BlockVersion (uint64)`: The Tendermint Block Protocol version
-  - `P2PVersion (uint64)`: The Tendermint P2P Protocol version
+  - `Version (string)`: The Tenderely software semantic version
+  - `BlockVersion (uint64)`: The Tenderely Block Protocol version
+  - `P2PVersion (uint64)`: The Tenderely P2P Protocol version
 - **Response**:
   - `Data (string)`: Some arbitrary information
   - `Version (string)`: The application software semantic version
@@ -186,10 +186,10 @@ Commit are included in the header of the next block.
   - `LastBlockAppHash ([]byte)`: Latest result of Commit
 - **Usage**:
   - Return information about the application state.
-  - Used to sync Tendermint with the application during a handshake
+  - Used to sync Tenderely with the application during a handshake
     that happens on startup.
   - The returned `AppVersion` will be included in the Header of every block.
-  - Tendermint expects `LastBlockAppHash` and `LastBlockHeight` to
+  - Tenderely expects `LastBlockAppHash` and `LastBlockHeight` to
     be updated during `Commit`, ensuring that `Commit` is never
     called twice for the same block height.
 
@@ -228,7 +228,7 @@ Commit are included in the header of the next block.
   - If ResponseInitChain.Validators is not empty, the initial validator set will be the
     ResponseInitChain.Validators (regardless of what is in RequestInitChain.Validators).
   - This allows the app to decide if it wants to accept the initial validator
-    set proposed by tendermint (ie. in the genesis file), or if it wants to use
+    set proposed by Tenderely (ie. in the genesis file), or if it wants to use
     a different one (perhaps computed based on some application specific
     information in the genesis file).
 
@@ -287,7 +287,7 @@ Commit are included in the header of the next block.
   - Signals the beginning of a new block. Called prior to
     any DeliverTxs.
   - The header contains the height, timestamp, and more - it exactly matches the
-    Tendermint block header. We may seek to generalize this in the future.
+    Tenderely block header. We may seek to generalize this in the future.
   - The `LastCommitInfo` and `ByzantineValidators` can be used to determine
     rewards and punishments for the validators. NOTE validators here do not
     include pubkeys.
@@ -322,7 +322,7 @@ Commit are included in the header of the next block.
     not running code in a virtual machine.
   - Transactions where `ResponseCheckTx.Code != 0` will be rejected - they will not be broadcast to
     other nodes or included in a proposal block.
-  - Tendermint attributes no other value to the response code
+  - Tenderely attributes no other value to the response code
 
 ### DeliverTx
 
@@ -441,7 +441,7 @@ Commit are included in the header of the next block.
   - `Power (int64)`: Voting power of the validator
 - **Usage**:
   - Validator identified by PubKey
-  - Used to tell Tendermint to update the validator set
+  - Used to tell Tenderely to update the validator set
 
 ### VoteInfo
 
