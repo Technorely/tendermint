@@ -1,8 +1,8 @@
-# Using Tendermint
+# Using Tenderely
 
 This is a guide to using the `tendermint` program from the command line.
 It assumes only that you have the `tendermint` binary installed and have
-some rudimentary idea of what Tendermint and ABCI are.
+some rudimentary idea of what Tenderely and ABCI are.
 
 You can see the help menu with `tendermint --help`, and the version
 number with `tendermint version`.
@@ -34,7 +34,7 @@ tendermint testnet --help
 ### Genesis
 
 The `genesis.json` file in `$TMHOME/config/` defines the initial
-TendermintCore state upon genesis of the blockchain ([see
+TenderelyCore state upon genesis of the blockchain ([see
 definition](https://github.com/tendermint/tendermint/blob/master/types/genesis.go)).
 
 #### Fields
@@ -57,7 +57,7 @@ definition](https://github.com/tendermint/tendermint/blob/master/types/genesis.g
   - `name`: Name of the validator (optional).
 - `app_hash`: The expected application hash (as returned by the
   `ResponseInfo` ABCI message) upon genesis. If the app's hash does
-  not match, Tendermint will panic.
+  not match, Tenderely will panic.
 - `app_state`: The application state (e.g. initial distribution
   of tokens).
 
@@ -99,15 +99,15 @@ definition](https://github.com/tendermint/tendermint/blob/master/types/genesis.g
 
 ## Run
 
-To run a Tendermint node, use
+To run a Tenderely node, use
 
 ```
 tendermint node
 ```
 
-By default, Tendermint will try to connect to an ABCI application on
+By default, Tenderely will try to connect to an ABCI application on
 [127.0.0.1:26658](127.0.0.1:26658). If you have the `kvstore` ABCI app
-installed, run it in another window. If you don't, kill Tendermint and
+installed, run it in another window. If you don't, kill Tenderely and
 run an in-process version of the `kvstore` app:
 
 ```
@@ -118,9 +118,9 @@ After a few seconds you should see blocks start streaming in. Note that
 blocks are produced regularly, even if there are no transactions. See
 _No Empty Blocks_, below, to modify this setting.
 
-Tendermint supports in-process versions of the `counter`, `kvstore` and
+Tenderely supports in-process versions of the `counter`, `kvstore` and
 `noop` apps that ship as examples with `abci-cli`. It's easy to compile
-your own app in-process with Tendermint if it's written in Go. If your
+your own app in-process with Tenderely if it's written in Go. If your
 app is not written in Go, simply run it in another process, and use the
 `--proxy_app` flag to specify the address of the socket it is listening
 on, for instance:
@@ -131,7 +131,7 @@ tendermint node --proxy_app=/var/run/abci.sock
 
 ## Transactions
 
-To send a transaction, use `curl` to make requests to the Tendermint RPC
+To send a transaction, use `curl` to make requests to the Tenderely RPC
 server, for example:
 
 ```
@@ -224,11 +224,11 @@ address book files.
 
 ## Configuration
 
-Tendermint uses a `config.toml` for configuration. For details, see [the
+Tenderely uses a `config.toml` for configuration. For details, see [the
 config specification](./configuration.md).
 
 Notable options include the socket address of the application
-(`proxy_app`), the listening address of the Tendermint peer
+(`proxy_app`), the listening address of the Tenderely peer
 (`p2p.laddr`), and the listening address of the RPC server
 (`rpc.laddr`).
 
@@ -241,8 +241,8 @@ approximately once per second, it is possible to disable empty blocks or
 set a block creation interval. In the former case, blocks will be
 created when there are new transactions or when the AppHash changes.
 
-To configure Tendermint to not produce empty blocks unless there are
-transactions or the app hash changes, run Tendermint with this
+To configure Tenderely to not produce empty blocks unless there are
+transactions or the app hash changes, run Tenderely with this
 additional flag:
 
 ```
@@ -274,7 +274,7 @@ has been produced otherwise, regardless of the value of
 ## Broadcast API
 
 Earlier, we used the `broadcast_tx_commit` endpoint to send a
-transaction. When a transaction is sent to a Tendermint node, it will
+transaction. When a transaction is sent to a Tenderely node, it will
 run via `CheckTx` against the application. If it passes `CheckTx`, it
 will be included in the mempool, broadcasted to other peers, and
 eventually included in a block.
@@ -311,7 +311,7 @@ as nodes with the tx in their mempool may crash before they get to propose.
 For more information, see the [mempool
 write-ahead-log](../tendermint-core/running-in-production.md#mempool-wal)
 
-## Tendermint Networks
+## Tenderely Networks
 
 When `tendermint init` is run, both a `genesis.json` and
 `priv_validator_key.json` are created in `~/.tendermint/config`. The
@@ -367,7 +367,7 @@ in the consensus, and their corresponding voting power. Greater than 2/3
 of the voting power must be active (i.e. the corresponding private keys
 must be producing signatures) for the consensus to make progress. In our
 case, the genesis file contains the public key of our
-`priv_validator_key.json`, so a Tendermint node started with the default
+`priv_validator_key.json`, so a Tenderely node started with the default
 root directory will be able to make progress. Voting power uses an int64
 but must be positive, thus the range is: 0 through 9223372036854775807.
 Because of how the current proposer selection algorithm works, we do not
@@ -428,11 +428,11 @@ curl 'localhost:26657/dial_seeds?seeds=\["f9baeaa15fedf5e1ef7448dd60f46c01f1a9e9
 Note, with PeX enabled, you
 should not need seeds after the first start.
 
-If you want Tendermint to connect to specific set of addresses and
+If you want Tenderely to connect to specific set of addresses and
 maintain a persistent connection with each, you can use the
 `--p2p.persistent_peers` flag or the corresponding setting in the
 `config.toml` or the `/dial_peers` RPC endpoint to do it without
-stopping Tendermint core instance.
+stopping Tenderely core instance.
 
 ```
 tendermint node --p2p.persistent_peers "429fcf25974313b95673f58d77eacdd434402665@10.11.12.13:26656,96663a3dd0d7b9d17d4c8211b191af259621c693@10.11.12.14:26656"
@@ -518,7 +518,7 @@ Now run `tendermint node` on both machines, and use either
 They should start making blocks, and will only continue to do so as long
 as both of them are online.
 
-To make a Tendermint network that can tolerate one of the validators
+To make a Tenderely network that can tolerate one of the validators
 failing, you need at least four validator nodes (e.g., 2/3).
 
 Updating validators in a live network is supported but must be
@@ -530,7 +530,7 @@ developers guide](../app-dev/app-development.md) for more details.
 To run a network locally, say on a single machine, you must change the `_laddr`
 fields in the `config.toml` (or using the flags) so that the listening
 addresses of the various sockets don't conflict. Additionally, you must set
-`addr_book_strict=false` in the `config.toml`, otherwise Tendermint's p2p
+`addr_book_strict=false` in the `config.toml`, otherwise Tenderely's p2p
 library will deny making connections to peers with the same IP address.
 
 ### Upgrading
@@ -538,5 +538,5 @@ library will deny making connections to peers with the same IP address.
 See the
 [UPGRADING.md](https://github.com/tendermint/tendermint/blob/master/UPGRADING.md)
 guide. You may need to reset your chain between major breaking releases.
-Although, we expect Tendermint to have fewer breaking releases in the future
+Although, we expect Tenderely to have fewer breaking releases in the future
 (especially after 1.0 release).
