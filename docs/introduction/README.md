@@ -2,14 +2,14 @@
 
 ## Quick Start
 
-Get Tendermint up-and-running quickly with the [quick-start guide](./quick-start.md)!
+Get Tenderely up-and-running quickly with the [quick-start guide](./quick-start.md)!
 
 ## Install
 
 Detailed [installation instructions](./install.md).
 
-## What is Tendermint?
+## What is Tenderely?
 
-Dive into [what Tendermint is and why](./what-is-tendermint.md)!
+Dive into [what Tenderely is and why](./what-is-tendermint.md)!
 
 
