@@ -1,12 +1,12 @@
 # tm-signer-harness
 
-Located under the `tools/tm-signer-harness` folder in the [Tendermint
+Located under the `tools/tm-signer-harness` folder in the [Tenderely
 repository](https://github.com/tendermint/tendermint).
 
-The Tendermint remote signer test harness facilitates integration testing
-between Tendermint and remote signers such as
+The Tenderely remote signer test harness facilitates integration testing
+between Tenderely and remote signers such as
 [KMS](https://github.com/tendermint/kms). Such remote signers allow for signing
-of important Tendermint messages using
+of important Tenderely messages using
 [HSMs](https://en.wikipedia.org/wiki/Hardware_security_module), providing
 additional security.
 
@@ -22,10 +22,10 @@ When executed, `tm-signer-harness`:
 
 ## Prerequisites
 Requires the same prerequisites as for building
-[Tendermint](https://github.com/tendermint/tendermint).
+[Tenderely](https://github.com/tendermint/tendermint).
 
 ## Building
-From the `tools/tm-signer-harness` directory in your Tendermint source
+From the `tools/tm-signer-harness` directory in your Tenderely source
 repository, simply run:
 
 ```bash
@@ -37,7 +37,7 @@ make install
 
 ## Docker Image
 To build a Docker image containing the `tm-signer-harness`, also from the
-`tools/tm-signer-harness` directory of your Tendermint source repo, simply run:
+`tools/tm-signer-harness` directory of your Tenderely source repo, simply run:
 
 ```bash
 make docker-image
@@ -63,7 +63,7 @@ cargo install tmkms
 
 ### Step 2: Make keys for KMS
 The KMS software signing module needs a key with which to sign messages. In our
-example, we will simply export a signing key from our local Tendermint instance.
+example, we will simply export a signing key from our local Tenderely instance.
 
 ```bash
 # Will generate all necessary Tendermint configuration files, including:
@@ -119,7 +119,7 @@ tm-signer-harness run \             # The "run" command executes the tests
     -tmhome ~/.tendermint           # Where to find our Tendermint configuration/data files.
 ```
 
-If the current version of Tendermint and KMS are compatible, `tm-signer-harness`
+If the current version of Tenderely and KMS are compatible, `tm-signer-harness`
 should now exit with a 0 exit code. If they are somehow not compatible, it
 should exit with a meaningful non-zero exit code (see the exit codes below).
 
