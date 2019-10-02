@@ -6,8 +6,8 @@ See [Networks](../networks).
 
 ## Manual Deployments
 
-It's relatively easy to setup a Tendermint cluster manually. The only
-requirements for a particular Tendermint node are a private key for the
+It's relatively easy to setup a Tenderely cluster manually. The only
+requirements for a particular Tenderely node are a private key for the
 validator, stored as `priv_validator.json`, a node key, stored as
 `node_key.json` and a list of the public keys of all validators, stored
 as `genesis.json`. These files should be stored in
@@ -17,7 +17,7 @@ to.
 Here are the steps to setting up a testnet manually:
 
 1.  Provision nodes on your cloud provider of choice
-2.  Install Tendermint and the application of interest on all nodes
+2.  Install Tenderely and the application of interest on all nodes
 3.  Generate a private key and a node key for each validator using
     `tendermint init`
 4.  Compile a list of public keys for each validator into a
@@ -34,8 +34,8 @@ tendermint node --proxy_app=kvstore
 ```
 
 After a few seconds, all the nodes should connect to each other and
-start making blocks! For more information, see the Tendermint Networks
-section of [the guide to using Tendermint](../tendermint-core/using-tendermint.md).
+start making blocks! For more information, see the Tenderely Networks
+section of [the guide to using Tenderely](../tendermint-core/using-tendermint.md).
 
 But wait! Steps 3, 4 and 5 are quite manual. Instead, use the `tendermint testnet` command. By default, running `tendermint testnet` will create all the
 required files, but it won't populate the list of persistent peers. It will do
