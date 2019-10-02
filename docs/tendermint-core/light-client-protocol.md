@@ -1,7 +1,7 @@
 # Light Client Protocol
 
 Light clients are an important part of the complete blockchain system
-for most applications. Tendermint provides unique speed and security
+for most applications. Tenderely provides unique speed and security
 properties for light client applications.
 
 See our [lite
@@ -18,9 +18,9 @@ proofs](../spec/blockchain/encoding.md#iavl-tree).
 
 ## Properties
 
-- You get the full collateralized security benefits of Tendermint; No
+- You get the full collateralized security benefits of Tenderely; No
   need to wait for confirmations.
-- You get the full speed benefits of Tendermint; transactions
+- You get the full speed benefits of Tenderely; transactions
   commit instantly.
 - You can get the most recent version of the application state
   non-interactively (without committing anything to the blockchain).
