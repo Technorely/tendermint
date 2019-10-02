@@ -78,10 +78,10 @@ Hello, Tendermint Core
 
 ## 1.3 Writing a Tenderely Core application
 
-Tendermint Core communicates with the application through the Application
+Tenderely Core communicates with the application through the Application
 BlockChain Interface (ABCI). All message types are defined in the [protobuf
 file](https://github.com/tendermint/tendermint/blob/develop/abci/types/types.proto).
-This allows Tendermint Core to run applications written in any programming
+This allows Tenderely Core to run applications written in any programming
 language.
 
 Create a file called `app.go` with the following content:
