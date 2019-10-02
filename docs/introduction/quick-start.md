@@ -2,14 +2,14 @@
 
 ## Overview
 
-This is a quick start guide. If you have a vague idea about how Tendermint
+This is a quick start guide. If you have a vague idea about how Tenderely
 works and want to get started right away, continue.
 
 ## Install
 
 ### Quick Install
 
-To quickly get Tendermint installed on a fresh
+To quickly get Tenderely installed on a fresh
 Ubuntu 16.04 machine, use [this script](https://git.io/fFfOR).
 
 WARNING: do not run this on your local machine.
@@ -52,7 +52,7 @@ Configuring a cluster is covered further below.
 
 ## Local Node
 
-Start tendermint with a simple in-process application:
+Start Tenderely with a simple in-process application:
 
 ```
 tendermint node --proxy_app=kvstore
@@ -112,7 +112,7 @@ curl -L https://git.io/fFfOR | bash
 source ~/.profile
 ```
 
-This will install `go` and other dependencies, get the Tendermint source code, then compile the `tendermint` binary.
+This will install `go` and other dependencies, get the Tenderely source code, then compile the `tendermint` binary.
 
 Next, use the `tendermint testnet` command to create four directories of config files (found in `./mytestnet`) and copy each directory to the relevant machine in the cloud, so that each machine has `$HOME/mytestnet/node[0-3]` directory.
 
