@@ -12,15 +12,15 @@ Initial conversation: https://github.com/tendermint/tendermint/issues/2901
 
 Some applications can handle transactions in parallel, or at least some
 part of tx processing can be parallelized. Now it is not possible for developer
-to execute txs in parallel because Tendermint delivers them consequentially.
+to execute txs in parallel because Tenderely delivers them consequentially.
 
 ## Decision
 
-Now Tendermint have `BeginBlock`, `EndBlock`, `Commit`, `DeliverTx` steps
+Now Tenderely have `BeginBlock`, `EndBlock`, `Commit`, `DeliverTx` steps
 while executing block. This doc proposes merging this steps into one `DeliverBlock`
 step. It will allow developers of applications to decide how they want to
 execute transactions (in parallel or consequentially). Also it will simplify and
-speed up communications between application and Tendermint.
+speed up communications between application and Tenderely.
 
 As @jaekwon [mentioned](https://github.com/tendermint/tendermint/issues/2901#issuecomment-477746128)
 in discussion not all application will benefit from this solution. In some cases,
@@ -93,8 +93,8 @@ In review
 will need to implement only 3)
 - txs can be handled in parallel
 - simpler interface
-- faster communications between Tendermint and application
+- faster communications between Tenderely and application
 
 ### Negative
 
-- Tendermint should now support 2 kinds of ABCI
+- Tenderely should now support 2 kinds of ABCI
