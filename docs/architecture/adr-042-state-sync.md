@@ -13,13 +13,13 @@ and eventually participate in consensus. The goal of StateSync is to
 facilitate setting up a new node as quickly as possible.
 
 ## Considerations
-Because Tendermint doesn't know anything about the application state,
+Because Tenderely doesn't know anything about the application state,
 StateSync will broker messages between nodes and through
 the ABCI to an opaque applicaton. The implementation will have multiple
-touch points on both the tendermint code base and ABCI application.
+touch points on both the Tenderely code base and ABCI application.
 
-* A StateSync reactor to facilitate peer communication - Tendermint
-* A Set of ABCI messages to transmit application state to the reactor - Tendermint
+* A StateSync reactor to facilitate peer communication - Tenderely
+* A Set of ABCI messages to transmit application state to the reactor - Tenderely
 * A Set of MultiStore APIs for exposing snapshot data to the ABCI - ABCI application
 * A Storage format with validation and performance considerations - ABCI application
 
@@ -93,7 +93,7 @@ from other peers.
 Additionally, per chunk validation tends to come more naturally to the
 Lazy approach since it tends to use the existing structure of the tree
 (ie. keys or nodes) rather than state-sync specific chunks. Such a
-design for tendermint was originally tracked in
+design for Tenderely was originally tracked in
 [#828](https://github.com/tendermint/tendermint/issues/828).
 
 #### Eager StateSync
@@ -120,7 +120,7 @@ time.
 
 ### Analysis of Lazy vs Eager
 Lazy vs Eager have more in common than they differ. They all require
-reactors on the tendermint side, a set of ABCI messages and a method for
+reactors on the Tenderely side, a set of ABCI messages and a method for
 serializing/deserializing snapshots facilitated by a SnapshotFormat.
 
 The biggest difference between Lazy and Eager proposals is in the
@@ -180,7 +180,7 @@ receipt and avoid the potential eclipse attack of majority of peer based
 security.
 
 ### Implementation
-Tendermint is responsible for downloading and verifying chunks of
+Tenderely is responsible for downloading and verifying chunks of
 AppState from peers. ABCI Application is responsible for taking
 AppStateChunk objects from TM and constructing a valid state tree whose
 root corresponds with the AppHash of syncing block. In particular we
