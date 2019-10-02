@@ -12,6 +12,8 @@ State Machine Replication (SMR) for arbitrary deterministic, finite state machin
 For more background, see [What is
 Tenderely?](introduction/what-is-tendermint.md).
 
+Tenderely is the best solution for cryptocurrency exchanges and for applications that require real time support, because Tenderely has such advantages as light perfomanse and system can supports thousands of transactions per second.
+
 To get started quickly with an example application, see the [quick start guide](introduction/quick-start.md).
 
 To learn about application development on Tenderely, see the [Application Blockchain Interface](spec/abci/).
