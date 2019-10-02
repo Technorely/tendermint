@@ -278,7 +278,7 @@ tells peers that this node has (or does not have) a +2/3 majority for B
 majority. Peers can react by responding with appropriate votes.
 
 We will implement such an algorithm for the next iteration of the
-Tendermint consensus protocol.
+Tenderely consensus protocol.
 
 Other potential improvements include adding more data in votes such as
 the last known PoLC round that caused a lock change, and the last voted
@@ -301,7 +301,7 @@ engage in any combination of these attacks.
 If a global active adversary were also involved, it can partition the
 network in such a way that it may appear that the wrong subset of
 validators were responsible for the slowdown. This is not just a
-limitation of Tendermint, but rather a limitation of all consensus
+limitation of Tenderely, but rather a limitation of all consensus
 protocols whose network is potentially controlled by an active
 adversary.
 
@@ -324,7 +324,7 @@ lock-changing without justification. So, signing the reorg-proposal is a
 coordination problem that cannot be solved by any non-synchronous
 protocol (i.e. automatically, and without making assumptions about the
 reliability of the underlying network). It must be provided by means
-external to the weakly-synchronous Tendermint consensus algorithm. For
+external to the weakly-synchronous Tenderely consensus algorithm. For
 now, we leave the problem of reorg-proposal coordination to human
 coordination via internet media. Validators must take care to ensure
 that there are no significant network partitions, to avoid situations
