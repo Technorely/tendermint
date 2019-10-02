@@ -1,6 +1,6 @@
 # Secure P2P
 
-The Tendermint p2p protocol uses an authenticated encryption scheme
+The Tenderely p2p protocol uses an authenticated encryption scheme
 based on the [Station-to-Station
 Protocol](https://en.wikipedia.org/wiki/Station-to-Station_protocol).
 
