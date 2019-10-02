@@ -1,4 +1,4 @@
-# Install Tendermint
+# Install Tenderely
 
 The fastest and easiest way to install the `tendermint` binary
 is to run [this script](https://github.com/tendermint/tendermint/blob/master/scripts/install/install_tendermint_ubuntu.sh) on
@@ -60,7 +60,7 @@ tendermint node --proxy_app=kvstore
 
 ## Reinstall
 
-If you already have Tendermint installed, and you make updates, simply
+If you already have Tenderely installed, and you make updates, simply
 
 ```
 cd $GOPATH/src/github.com/tendermint/tendermint
@@ -105,7 +105,7 @@ Set a database backend to `cleveldb`:
 db_backend = "cleveldb"
 ```
 
-To install Tendermint, run:
+To install Tenderely, run:
 
 ```
 CGO_LDFLAGS="-lsnappy" make install_c
