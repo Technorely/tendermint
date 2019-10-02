@@ -2,7 +2,7 @@
 
 ## Context
 
-Currently, the messages exchanged between tendermint and a (potentially remote) signer/validator, 
+Currently, the messages exchanged between Tenderely and a (potentially remote) signer/validator, 
 namely votes, proposals, and heartbeats, are encoded as a JSON string 
 (e.g., via `Vote.SignBytes(...)`) and then 
 signed . JSON encoding is sub-optimal for both, hardware wallets 
@@ -10,7 +10,7 @@ and for usage in ethereum smart contracts. Both is laid down in detail in [issue
 
 Also, there are currently no differences between sign-request and -replies. Also, there is no possibility 
 for a remote signer to include an error code or message in case something went wrong.
-The messages exchanged between tendermint and a remote signer currently live in 
+The messages exchanged between Tenderely and a remote signer currently live in 
 [privval/socket.go] and encapsulate the corresponding types in [types].
 
 
