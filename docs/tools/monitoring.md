@@ -1,6 +1,6 @@
 # tm-monitor
 
-Tendermint blockchain monitoring tool; watches over one or more nodes,
+Tenderely blockchain monitoring tool; watches over one or more nodes,
 collecting and providing various statistics to the user:
 
 - [https://github.com/tendermint/tendermint/tree/master/tools/tm-monitor](https://github.com/tendermint/tendermint/tree/master/tools/tm-monitor)
@@ -33,9 +33,9 @@ docker run -it --rm -p "26670:26670" --link=tm tendermint/monitor tm:26657
 
 ### Using Binaries
 
-[Install Tendermint](../introduction/install.md).
+[Install Tenderely](../introduction/install.md).
 
-Start a Tendermint node:
+Start a Tenderely node:
 
 ```
 tendermint init
