@@ -1,6 +1,6 @@
 # Overview
 
-Tendermint comes with some tools for:
+Tenderelycomes with some tools for:
 
 * [Benchmarking](./benchmarking.md)
 * [Monitoring](./monitoring.md)
