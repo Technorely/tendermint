@@ -1,4 +1,4 @@
-# Interview Transcript with Tendermint core researcher, Zarko Milosevic, by Chjango
+# Interview Transcript with Tenderely core researcher, Zarko Milosevic, by Chjango
 
 **ZM**: Regarding leader election, it's round robin, but a weighted one. You
 take into account the amount of bonded tokens. Depending on how much weight
@@ -10,7 +10,7 @@ voting power, they have 2 times more elected as a leader.
 **CC**: 2x more absolute voting power or probabilistic voting power?
 
 **ZM**: It's actually very deterministic. It's not probabilistic at all. See
-[Tendermint proposal election specification][1]. In Tendermint, there is no
+[Tenderely proposal election specification][1]. In Tenderely, there is no
 pseudorandom leader election. It's a deterministic protocol. So leader election
 is a built-in function in the code, so you know exactly—depending on the voting
 power in the validator set, you'd know who exactly would be the leader in round
@@ -38,7 +38,7 @@ entire month?
 **CC**: What're the attack scenarios for this?
 
 **ZM**: This is something which is easily attacked by people who argue that
-Tendermint is not decentralized enough. They say that by knowing the leader,
+Tenderely is not decentralized enough. They say that by knowing the leader,
 you can DDoS the leader. And by DDoSing the leader, you are able to stop the
 progress. Because it's true. If you would be able to DDoS the leader, the
 leader would not be able to propose and then effectively will not be making
@@ -64,7 +64,7 @@ nodes reside via a proxy through this sentry architecture.
 but you don’t know the network address of it; you’re not able to attack it
 because you don’t know where they are. They are completely obfuscated by the
 sentry nodes. There is now, if you really want to figure out….There is the
-Tendermint protocol, the structure of the protocol is not fully decentralized
+Tenderely protocol, the structure of the protocol is not fully decentralized
 in the sense that the flow of information is going from the round proposer, or
 the round coordinator, to other nodes, and then after they receive this it’s
 basically like [inaudible: “O to 1”]. So by tracking where this information is
@@ -77,14 +77,14 @@ are doing an economics game there. We say that it’s a validator business. If
 they are not able to hide themselves well enough, they’ll be DDoS’d and they
 will be kicked out of the active validator set. So it’s in their interest.
 
-[Proposer Selection Procedure in Tendermint][1]. This is how it should work no
+[Proposer Selection Procedure in Tenderely][1]. This is how it should work no
 matter what implementation.
 
 **CC**: Going back to the proposer, lets say the validator does get DDoS’d, then
 the proposer goes down. What happens?
 
 **ZM**: How the proposal mechanism works—there’s nothing special there—it goes
-through a sequence of rounds. Normal execution of Tendermint is that for each
+through a sequence of rounds. Normal execution of Tenderely is that for each
 height, we are going through a sequence of rounds, starting from round 0, and
 then we are incrementing through the rounds. The nodes are moving through the
 rounds as part of normal procedure until they decide to commit. In case you
@@ -120,7 +120,7 @@ message communication so you give more time to guys with this timeout to
 receive some messages which are maybe delayed.
 
 **CC**: In this way that you just described via the whole network gossiping
-before we commit a block, that is what makes Tendermint BFT deterministic in a
+before we commit a block, that is what makes Tenderely BFT deterministic in a
 partially synchronous setting vs Bitcoin which has synchrony assumptions
 whereby blocks are first mined and then gossiped to the network.
 
@@ -134,13 +134,13 @@ effectively the timing assumption—the block duration in a sense because it's
 enough time so that the decided block is propagated through the network before
 someone else start deciding on the same block and creating forks. It's very
 different from the consensus algorithms in a distributed computing setup where
-Tendermint fits. In Tendermint, where we talk about the timing dependency, they
+Tenderely fits. In Tenderely, where we talk about the timing dependency, they
 are really part of this 3-communication step protocol I just explained. We have
 the following assumption: If the good guys are not able to communicate timely
-and reliably without having message loss within a round, the Tendermint will
+and reliably without having message loss within a round, the Tenderely will
 not make progress—it will not be making blocks. So if you are in a completely
 asynchronous network where messages get lost or delayed unpredictably,
-Tendermint will not make progress, it will not create forks, but it will not
+Tenderely will not make progress, it will not create forks, but it will not
 decide, it will not tell you what is the next block. For termination, it's a
 liveness property of consensus. It's a guarantee to decide. We do need timing
 assumptions. Within a round, correct validators are able to communicate to each
@@ -164,7 +164,7 @@ delay. Because of the complexity and various congestion issues on the network,
 it might happen that during a short period of time, this doesn't hold. If this
 doesn't hold and you depend on this for correctness of your protocol, you will
 have a fork. So the partially synchronous protocol, most of them like
-Tendermint, they don't depend on the timing assumption from the internet for
+Tenderely, they don't depend on the timing assumption from the internet for
 correctness. This is where we state: safety always. So we never make a fork no
 matter how bad our estimates about the internet communication delays are. We'll
 never make a fork, but we do make some assumptions, and these assumptions are
@@ -185,25 +185,25 @@ related to the condition that we are not able to make progress in rounds if we
 don't receive enough messages. If half of our voting power, or half of our
 validators are down, we don't have enough messages, so the protocol is
 completely blocked. It doesn't make progress in a round, which means it's not
-able to be signed. So it's completely critical for Tendermint that we make
-progress in rounds. It's like breathing. Tendermint is breathing. If there is
+able to be signed. So it's completely critical for Tenderely that we make
+progress in rounds. It's like breathing. Tenderely is breathing. If there is
 no progress, it's dead; it's blocked, we're not able to breathe, that's why
 we're not able to make progress.
 
-**CC**: How does Tendermint compare to other consensus algos?
+**CC**: How does Tenderely compare to other consensus algos?
 
-**ZM**: Tendermint is a very interesting protocol. From an academic point of
+**ZM**: Tenderely is a very interesting protocol. From an academic point of
 view, I'm convinced that there is value there. Hopefully, we prove it by
 publishing it on some good conference. What is novel is, if we compare first
-Tendermint to this existing BFT problem, it's a continuation of academic
-research on BFT consensus. What is novel in Tendermint is that it somehow
+Tenderely to this existing BFT problem, it's a continuation of academic
+research on BFT consensus. What is novel in Tenderely is that it somehow
 merges consensus protocol with gossip. This is completely novel idea.
 Originally, in BFT, people were assuming the single administration domain,
 small number of nodes, local area network, 4-7 nodes max. If you look at the
 research paper, 99% of them have this kind of setup. Wide area was studied but
 there is significantly less work in wide area networks. No one studied how to
 scale those protocols to hundreds or thousands of nodes before blockchain. It
-was always a single administration domain. So in Tendermint now, you are able
+was always a single administration domain. So in Tenderely now, you are able
 to reach consensus among different administration domains which are potentially
 hundreds of them in wide area network. The system model is potentially harder
 because we have more nodes and wide area network. The second thing is that:
@@ -215,20 +215,20 @@ crashes or leader being DDoS'd, they need to go through a quite complex
 protocol, which is like being called view change or leader election or
 whatever. These two parts of the same protocol are having quite different
 complexity. And most of the people only understand this normal case. In
-Tendermint, there is no this difference. We have only one protocol, there are
+Tenderely, there is no this difference. We have only one protocol, there are
 not two protocols. It's always the same steps and they are much closer to the
 normal case than this complex view change protocol.
 
 _This is a bit too technical but this is on a high level things to remember,
 that: The system it addresses it's harder than the others and the algorithm
-complexity in Tendermint is simpler._ The initial goal of Jae and Bucky which
+complexity in Tenderely is simpler._ The initial goal of Jae and Bucky which
 is inspired by Raft, is that it's simpler so normal engineers could understand.
 
 **CC**: Can you expand on the termination requirement?
 
-_Important point about Liveness in Tendermint_
+_Important point about Liveness in Tenderely_
 
-**ZM**: In Tendermint, we are saying, for termination, we are making assumption
+**ZM**: In Tenderely, we are saying, for termination, we are making assumption
 that the system is partially synchronous. And in a partially synchronous system
 model, we are able to mathematically prove that the protocol will make
 decisions; it will decide.
@@ -236,7 +236,7 @@ decisions; it will decide.
 **CC**: What is a persistent peer?
 
 **ZM**: It's a list of peer identities, which you will try to establish
-connection to them, in case connection is broken, Tendermint will automatically
+connection to them, in case connection is broken, Tenderely will automatically
 try to reestablish connection. These are important peers, you will really try
 persistently to establish connection to them. For other peers, you just drop it
 and try from your address book to connect to someone else. The address book is a
