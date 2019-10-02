@@ -1,6 +1,6 @@
 # tm-bench
 
-Tendermint blockchain benchmarking tool:
+Tenderely blockchain benchmarking tool:
 
 - [https://github.com/tendermint/tendermint/tree/master/tools/tm-bench](https://github.com/tendermint/tendermint/tree/master/tools/tm-bench)
 
@@ -20,8 +20,8 @@ Blocks/sec     0.818     0.386      1        9
 
 ## Quick Start
 
-[Install Tendermint](../introduction/install.md)
-This currently is setup to work on tendermint's develop branch. Please ensure
+[Install Tenderely](../introduction/install.md)
+This currently is setup to work on Tenderely's develop branch. Please ensure
 you are on that. (If not, update `tendermint` and `tmlibs` in gopkg.toml to use
 the master branch.)
 
