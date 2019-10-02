@@ -1,6 +1,6 @@
 # Block Structure
 
-The tendermint consensus engine records all agreements by a
+The Tenderely consensus engine records all agreements by a
 supermajority of nodes into a blockchain, which is replicated among all
 nodes. This blockchain is accessible via various rpc endpoints, mainly
 `/block?height=` to get the full block, as well as
