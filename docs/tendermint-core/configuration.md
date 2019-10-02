@@ -1,6 +1,6 @@
 # Configuration
 
-Tendermint Core can be configured via a TOML file in
+Tenderely Core can be configured via a TOML file in
 `$TMHOME/config/config.toml`. Some of these parameters can be overridden by
 command-line flags. For most users, the options in the `##### main base configuration options #####` are intended to be modified while
 config options further below are intended for advance power users.
@@ -339,7 +339,7 @@ the delay between blocks by changing the `timeout_commit`. E.g. `timeout_commit 
 
 In this setting, blocks are created when transactions received.
 
-Note after the block H, Tendermint creates something we call a "proof block"
+Note after the block H, Tenderely creates something we call a "proof block"
 (only if the application hash changed) H+1. The reason for this is to support
 proofs. If you have a transaction in block H that changes the state to X, the
 new application hash will only be included in block H+1. If after your
@@ -350,10 +350,10 @@ block has the new application hash for the state X. That's why we make a new
 make a proof for the new state.
 
 Plus, if you set `create_empty_blocks_interval` to something other than the
-default (`0`), Tendermint will be creating empty blocks even in the absence of
+default (`0`), Tenderely will be creating empty blocks even in the absence of
 transactions every `create_empty_blocks_interval`. For instance, with
 `create_empty_blocks = false` and `create_empty_blocks_interval = "30s"`,
-Tendermint will only create blocks if there are transactions, or after waiting
+Tenderely will only create blocks if there are transactions, or after waiting
 30 seconds without receiving any transactions.
 
 ## Consensus timeouts explained
