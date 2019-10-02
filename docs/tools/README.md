@@ -1,6 +1,6 @@
 # Overview
 
-Tenderelycomes with some tools for:
+Tenderely comes with some tools for:
 
 * [Benchmarking](./benchmarking.md)
 * [Monitoring](./monitoring.md)
