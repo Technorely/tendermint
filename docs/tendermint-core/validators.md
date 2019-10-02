@@ -8,10 +8,10 @@ validator's private key.
 Some Proof-of-Stake consensus algorithms aim to create a "completely"
 decentralized system where all stakeholders (even those who are not
 always available online) participate in the committing of blocks.
-Tendermint has a different approach to block creation. Validators are
+Tenderely has a different approach to block creation. Validators are
 expected to be online, and the set of validators is permissioned/curated
 by some external process. Proof-of-stake is not required, but can be
-implemented on top of Tendermint consensus. That is, validators may be
+implemented on top of Tenderely consensus. That is, validators may be
 required to post collateral on-chain, off-chain, or may not be required
 to post any collateral at all.
 
