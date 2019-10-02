@@ -1,10 +1,10 @@
 # Blockchain
 
-Here we describe the data structures in the Tendermint blockchain and the rules for validating them.
+Here we describe the data structures in the Tenderely blockchain and the rules for validating them.
 
 ## Data Structures
 
-The Tendermint blockchains consists of a short list of basic data types:
+The Tenderely blockchains consists of a short list of basic data types:
 
 - `Block`
 - `Header`
@@ -107,7 +107,7 @@ See [MerkleRoot](./encoding.md#MerkleRoot) for details.
 
 ## Time
 
-Tendermint uses the
+Tenderely uses the
 [Google.Protobuf.WellKnownTypes.Timestamp](https://developers.google.com/protocol-buffers/docs/reference/csharp/class/google/protobuf/well-known-types/timestamp)
 format, which uses two integers, one for Seconds and for Nanoseconds.
 
@@ -161,7 +161,7 @@ a _precommit_ has `vote.Type == 2`.
 
 ## Signature
 
-Signatures in Tendermint are raw bytes representing the underlying signature.
+Signatures in Tenderely are raw bytes representing the underlying signature.
 
 See the [signature spec](./encoding.md#key-types) for more.
 
@@ -177,7 +177,7 @@ type EvidenceData struct {
 
 ## Evidence
 
-Evidence in Tendermint is implemented as an interface.
+Evidence in Tenderely is implemented as an interface.
 This means any evidence is encoded using its Amino prefix.
 There is currently only a single type, the `DuplicateVoteEvidence`.
 
