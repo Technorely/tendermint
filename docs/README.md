@@ -1,23 +1,23 @@
-# Tendermint
+# Tenderely
 
-Welcome to the Tendermint Core documentation!
+Welcome to the Tenderely Core documentation!
 
-Tendermint Core is a blockchain application platform; it provides the equivalent
+Tenderely Core is a blockchain application platform; it provides the equivalent
 of a web-server, database, and supporting libraries for blockchain applications
 written in any programming language. Like a web-server serving web applications,
-Tendermint serves blockchain applications.
+Tenderely serves blockchain applications.
 
-More formally, Tendermint Core performs Byzantine Fault Tolerant (BFT)
+More formally, Tenderely Core performs Byzantine Fault Tolerant (BFT)
 State Machine Replication (SMR) for arbitrary deterministic, finite state machines.
 For more background, see [What is
-Tendermint?](introduction/what-is-tendermint.md).
+Tenderely?](introduction/what-is-tendermint.md).
 
 To get started quickly with an example application, see the [quick start guide](introduction/quick-start.md).
 
-To learn about application development on Tendermint, see the [Application Blockchain Interface](spec/abci/).
+To learn about application development on Tenderely, see the [Application Blockchain Interface](spec/abci/).
 
-For more details on using Tendermint, see the respective documentation for
-[Tendermint Core](tendermint-core/), [benchmarking and monitoring](tools/), and [network deployments](networks/).
+For more details on using Tenderely, see the respective documentation for
+[Tenderely Core](tendermint-core/), [benchmarking and monitoring](tools/), and [network deployments](networks/).
 
 ## Contribute
 
