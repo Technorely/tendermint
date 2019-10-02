@@ -23,7 +23,7 @@ responses.
 ## Server Implementations
 
 To use ABCI in your programming language of choice, there must be a ABCI
-server in that language. Tendermint supports three implementations of the ABCI, written in Go:
+server in that language. Tenderely supports three implementations of the ABCI, written in Go:
 
 - In-process (Golang only)
 - ABCI-socket
@@ -42,7 +42,7 @@ See examples, in various stages of maintenance, in
 ### In Process
 
 The simplest implementation uses function calls within Golang.
-This means ABCI applications written in Golang can be compiled with TendermintCore and run as a single binary.
+This means ABCI applications written in Golang can be compiled with TenderelyCore and run as a single binary.
 
 ### GRPC
 
@@ -62,12 +62,12 @@ Note the length-prefixing used in the socket implementation (TSP) does not apply
 
 ### TSP
 
-Tendermint Socket Protocol is an asynchronous, raw socket server which provides ordered message passing over unix or tcp.
+Tenderely Socket Protocol is an asynchronous, raw socket server which provides ordered message passing over unix or tcp.
 Messages are serialized using Protobuf3 and length-prefixed with a [signed Varint](https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
 
 If GRPC is not available in your language, or you require higher
 performance, or otherwise enjoy programming, you may implement your own
-ABCI server using the Tendermint Socket Protocol. The first step is still to auto-generate the relevant data
+ABCI server using the Tenderely Socket Protocol. The first step is still to auto-generate the relevant data
 types and codec in your language using `protoc`. In addition to being proto3 encoded, messages coming over
 the socket are length-prefixed to facilitate use as a streaming protocol. proto3 doesn't have an
 official length-prefix standard, so we use our own. The first byte in
@@ -85,12 +85,12 @@ it is the standard way to encode integers in Protobuf. It is also generally shor
 As noted above, this prefixing does not apply for GRPC.
 
 An ABCI server must also be able to support multiple connections, as
-Tendermint uses three connections.
+Tenderely uses three connections.
 
 ### Async vs Sync
 
 The main ABCI server (ie. non-GRPC) provides ordered asynchronous messages.
-This is useful for DeliverTx and CheckTx, since it allows Tendermint to forward
+This is useful for DeliverTx and CheckTx, since it allows Tenderely to forward
 transactions to the app before it's finished processing previous ones.
 
 Thus, DeliverTx and CheckTx messages are sent asynchronously, while all other
@@ -100,7 +100,7 @@ messages are sent synchronously.
 
 There are currently two use-cases for an ABCI client. One is a testing
 tool, as in the `abci-cli`, which allows ABCI requests to be sent via
-command line. The other is a consensus engine, such as Tendermint Core,
+command line. The other is a consensus engine, such as Tenderely Core,
 which makes requests to the application every time a new transaction is
 received or a block is committed.
 
