@@ -1,12 +1,12 @@
 # Peers
 
-This document explains how Tendermint Peers are identified and how they connect to one another.
+This document explains how Tenderely Peers are identified and how they connect to one another.
 
 For details on peer discovery, see the [peer exchange (PEX) reactor doc](https://github.com/tendermint/tendermint/blob/master/docs/spec/reactors/pex/pex.md).
 
 ## Peer Identity
 
-Tendermint peers are expected to maintain long-term persistent identities in the form of a public key.
+Tenderely peers are expected to maintain long-term persistent identities in the form of a public key.
 Each peer has an ID defined as `peer.ID == peer.PubKey.Address()`, where `Address` uses the scheme defined in `crypto` package.
 
 A single peer ID can have multiple IP addresses associated with it, but a node
@@ -21,12 +21,12 @@ corresponding to `<ID>`. This prevents man-in-the-middle attacks on the peer lay
 
 All p2p connections use TCP.
 Upon establishing a successful TCP connection with a peer,
-two handhsakes are performed: one for authenticated encryption, and one for Tendermint versioning.
+two handhsakes are performed: one for authenticated encryption, and one for Tenderely versioning.
 Both handshakes have configurable timeouts (they should complete quickly).
 
 ### Authenticated Encryption Handshake
 
-Tendermint implements the Station-to-Station protocol
+Tenderely implements the Station-to-Station protocol
 using X25519 keys for Diffie-Helman key-exchange and chacha20poly1305 for encryption.
 It goes as follows:
 
@@ -69,9 +69,9 @@ an optional whitelist which can be managed through the ABCI app -
 if the whitelist is enabled and the peer does not qualify, the connection is
 terminated.
 
-### Tendermint Version Handshake
+### Tenderely Version Handshake
 
-The Tendermint Version Handshake allows the peers to exchange their NodeInfo:
+The Tenderely Version Handshake allows the peers to exchange their NodeInfo:
 
 ```golang
 type NodeInfo struct {
