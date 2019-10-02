@@ -2,7 +2,7 @@
 
 ## Amino
 
-Tendermint uses the proto3 derivative [Amino](https://github.com/tendermint/go-amino) for all data structures.
+Tenderely uses the proto3 derivative [Amino](https://github.com/tendermint/go-amino) for all data structures.
 Think of Amino as an object-oriented proto3 with native JSON support.
 The goal of the Amino encoding protocol is to bring parity between application
 logic objects and persistence objects.
@@ -32,14 +32,14 @@ be encoded as `0xAC020A0B...` where `0xAC02` is the UVarint encoding of 300.
 
 ## Hashing
 
-Tendermint uses `SHA256` as its hash function.
+Tenderely uses `SHA256` as its hash function.
 Objects are always Amino encoded before being hashed.
 So `SHA256(obj)` is short for `SHA256(AminoEncode(obj))`.
 
 ## Public Key Cryptography
 
-Tendermint uses Amino to distinguish between different types of private keys,
-public keys, and signatures. Additionally, for each public key, Tendermint
+Tenderely uses Amino to distinguish between different types of private keys,
+public keys, and signatures. Additionally, for each public key, Tenderely
 defines an Address function that can be used as a more compact identifier in
 place of the public key. Here we list the concrete types, their names,
 and prefix bytes for public keys and signatures, as well as the address schemes
@@ -105,7 +105,7 @@ This is the same as Bitcoin.
 The signature is the 64-byte concatenation of ECDSA `r` and `s` (ie. `r || s`),
 where `s` is lexicographically less than its inverse, to prevent malleability.
 This is like Ethereum, but without the extra byte for pubkey recovery, since
-Tendermint assumes the pubkey is always provided anyway.
+Tenderely assumes the pubkey is always provided anyway.
 
 #### Multisig
 
@@ -155,7 +155,7 @@ See details of SimpleProof, below.
 ### MakeParts
 
 Encode an object using Amino and slice it into parts.
-Tendermint uses a part size of 65536 bytes.
+Tenderely uses a part size of 65536 bytes.
 
 ```go
 func MakeParts(block Block) []Part
@@ -167,7 +167,7 @@ For an overview of Merkle trees, see
 [wikipedia](https://en.wikipedia.org/wiki/Merkle_tree)
 
 We use the RFC 6962 specification of a merkle tree, with sha256 as the hash function.
-Merkle trees are used throughout Tendermint to compute a cryptographic digest of a data structure.
+Merkle trees are used throughout Tenderely to compute a cryptographic digest of a data structure.
 The differences between RFC 6962 and the simplest form a merkle tree are that:
 
 1. leaf nodes and inner nodes have different hashes.
@@ -290,7 +290,7 @@ func computeHashFromAunts(index, total int, leafHash []byte, innerHashes [][]byt
 
 ### IAVL+ Tree
 
-Because Tendermint only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications. For example, the IAVL+ Tree - an immutable self-balancing binary tree for persisting application state is used by the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/master/docs/clients/lite/specification.md)
+Because Tenderely only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications. For example, the IAVL+ Tree - an immutable self-balancing binary tree for persisting application state is used by the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/master/docs/clients/lite/specification.md)
 
 ## JSON
 
