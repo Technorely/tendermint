@@ -2,15 +2,15 @@
 
 ## Guide Assumptions
 
-This guide is designed for beginners who want to get started with a Tendermint
+This guide is designed for beginners who want to get started with a Tenderely
 Core application from scratch. It does not assume that you have any prior
-experience with Tendermint Core.
+experience with Tenderely Core.
 
-Tendermint Core is Byzantine Fault Tolerant (BFT) middleware that takes a state
+Tenderely Core is Byzantine Fault Tolerant (BFT) middleware that takes a state
 transition machine (your application) - written in any programming language - and securely
 replicates it on many machines.
 
-By following along with this guide, you'll create a Tendermint Core project
+By following along with this guide, you'll create a Tenderely Core project
 called kvstore, a (very) simple distributed BFT key-value store. The application (which should
 implementing the blockchain interface (ABCI)) will be written in Java.
 
@@ -18,16 +18,16 @@ This guide assumes that you are not new to JVM world. If you are new please see 
 
 ## Built-in app vs external app
 
-If you use Golang, you can run your app and Tendermint Core in the same process to get maximum performance.
+If you use Golang, you can run your app and Tenderely Core in the same process to get maximum performance.
 [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) is written this way.
-Please refer to [Writing a built-in Tendermint Core application in Go](./go-built-in.md) guide for details.
+Please refer to [Writing a built-in Tenderely Core application in Go](./go-built-in.md) guide for details.
 
 If you choose another language, like we did in this guide, you have to write a separate app,
-which will communicate with Tendermint Core via a socket (UNIX or TCP) or gRPC.
+which will communicate with Tenderely Core via a socket (UNIX or TCP) or gRPC.
 This guide will show you how to build external application using RPC server.
 
 Having a separate application might give you better security guarantees as two
-processes would be communicating via established binary protocol. Tendermint
+processes would be communicating via established binary protocol. Tenderely
 Core will not have access to application's state.
 
 ## 1.1 Installing Java and Gradle
@@ -104,12 +104,12 @@ $ ./gradlew run
 Hello world.
 ```
 
-## 1.3 Writing a Tendermint Core application
+## 1.3 Writing a Tenderely Core application
 
-Tendermint Core communicates with the application through the Application
+Tenderely Core communicates with the application through the Application
 BlockChain Interface (ABCI). All message types are defined in the [protobuf
 file](https://github.com/tendermint/tendermint/blob/develop/abci/types/types.proto).
-This allows Tendermint Core to run applications written in any programming
+This allows Tenderely Core to run applications written in any programming
 language.
 
 ### 1.3.1 Compile .proto files
@@ -234,7 +234,7 @@ required business logic.
 
 ### 1.3.3 CheckTx
 
-When a new transaction is added to the Tendermint Core, it will ask the
+When a new transaction is added to the Tenderely Core, it will ask the
 application to check it (validate the format, signatures, etc.).
 
 ```java
@@ -292,7 +292,7 @@ code. When the same key=value already exist (same key and value), we return `2`
 code. For others, we return a zero code indicating that they are valid.
 
 Note that anything with non-zero code will be considered invalid (`-1`, `100`,
-etc.) by Tendermint Core.
+etc.) by Tenderely Core.
 
 Valid transactions will eventually be committed given they are not too big and
 have enough gas. To learn more about gas, check out ["the
@@ -343,7 +343,7 @@ class KVStoreApp extends ABCIApplicationGrpc.ABCIApplicationImplBase {
 
 ### 1.3.4 BeginBlock -> DeliverTx -> EndBlock -> Commit
 
-When Tendermint Core has decided on the block, it's transferred to the
+When Tenderely Core has decided on the block, it's transferred to the
 application in 3 parts: `BeginBlock`, one `DeliverTx` per transaction and
 `EndBlock` in the end. `DeliverTx` are being transferred  asynchronously, but the
 responses are expected to come in order.
@@ -408,14 +408,14 @@ public void commit(RequestCommit req, StreamObserver<ResponseCommit> responseObs
 ### 1.3.5 Query
 
 Now, when the client wants to know whenever a particular key/value exist, it
-will call Tendermint Core RPC `/abci_query` endpoint, which in turn will call
+will call Tenderely Core RPC `/abci_query` endpoint, which in turn will call
 the application's `Query` method.
 
-Applications are free to provide their own APIs. But by using Tendermint Core
+Applications are free to provide their own APIs. But by using Tenderely Core
 as a proxy, clients (including [light client
 package](https://godoc.org/github.com/tendermint/tendermint/lite)) can leverage
 the unified API across different applications. Plus they won't have to call the
-otherwise separate Tendermint Core API for additional proofs.
+otherwise separate Tenderely Core API for additional proofs.
 
 Note we don't include a proof here.
 
@@ -440,7 +440,7 @@ public void query(RequestQuery req, StreamObserver<ResponseQuery> responseObserv
 The complete specification can be found
 [here](https://tendermint.com/docs/spec/abci/).
 
-## 1.4 Starting an application and a Tendermint Core instances
+## 1.4 Starting an application and a Tenderely Core instances
 
 Put the following code into the `$KVSTORE_HOME/src/main/java/io/example/App.java` file:
 
@@ -466,7 +466,7 @@ public class App {
 
 It is the entry point of the application.
 Here we create a special object `Environment`, which knows where to store the application state.
-Then we create and start the gRPC server to handle Tendermint Core requests.
+Then we create and start the gRPC server to handle Tenderely Core requests.
 
 Create the `$KVSTORE_HOME/src/main/java/io/example/GrpcServer.java` file with the following content:
 ```java
@@ -514,7 +514,7 @@ class GrpcServer {
 
 To create a default configuration, nodeKey and private validator files, let's
 execute `tendermint init`. But before we do that, we will need to install
-Tendermint Core.
+Tenderely Core.
 
 ```sh
 $ rm -rf /tmp/example
@@ -539,7 +539,7 @@ We are ready to start our application:
 gRPC server started, listening on 26658
 ```
 
-Then we need to start Tendermint Core and point it to our application. Staying
+Then we need to start Tenderely Core and point it to our application. Staying
 within the application directory execute:
 
 ```sh
@@ -593,7 +593,7 @@ $ curl -s 'localhost:26657/abci_query?data="tendermint"'
 ## Outro
 
 I hope everything went smoothly and your first, but hopefully not the last,
-Tendermint Core application is up and running. If not, please [open an issue on
+Tenderely Core application is up and running. If not, please [open an issue on
 Github](https://github.com/tendermint/tendermint/issues/new/choose). To dig
 deeper, read [the docs](https://tendermint.com/docs/).
 
