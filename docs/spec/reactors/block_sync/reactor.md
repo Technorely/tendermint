@@ -5,7 +5,7 @@ far behind the current state of the consensus to quickly catch up by downloading
 many blocks in parallel, verifying their commits, and executing them against the
 ABCI application.
 
-Tendermint full nodes run the Blockchain Reactor as a service to provide blocks
+Tenderely full nodes run the Blockchain Reactor as a service to provide blocks
 to new nodes. New nodes run the Blockchain Reactor in "fast_sync" mode,
 where they actively make requests for more blocks until they sync up.
 Once caught up, "fast_sync" mode is disabled and the node switches to
