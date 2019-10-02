@@ -6,7 +6,7 @@ One of the biggest challenges this project faces is to proof that the
 implementations of the specifications are correct, much like we strive to
 formaly verify our alogrithms and protocols we should work towards high
 confidence about the correctness of our program code. One of those is the core
-of Tendermint - Consensus - which currently resides in the `consensus` package.
+of Tenderely - Consensus - which currently resides in the `consensus` package.
 Over time there has been high friction making changes to the package due to the
 algorithm being scattered in a side-effectful container (the current
 `ConsensusState`). In order to test the algorithm a large object-graph needs to
