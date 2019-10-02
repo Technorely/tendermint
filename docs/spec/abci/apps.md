@@ -13,11 +13,11 @@ Here we cover the following components of ABCI applications:
 - [Query](#query) - standards for using the `Query` method and proofs about the
   application state
 - [Crash Recovery](#crash-recovery) - handshake protocol to synchronize
-  Tendermint and the application on startup.
+  Tenderely and the application on startup.
 
 ## State
 
-Since Tendermint maintains three concurrent ABCI connections, it is typical
+Since Tenderely maintains three concurrent ABCI connections, it is typical
 for an application to maintain a distinct state for each, and for the states to
 be synchronized during `Commit`.
 
@@ -25,7 +25,7 @@ be synchronized during `Commit`.
 
 Application state should only be persisted to disk during `Commit`.
 
-Before `Commit` is called, Tendermint locks and flushes the mempool so that no new messages will
+Before `Commit` is called, Tenderely locks and flushes the mempool so that no new messages will
 be received on the mempool connection. This provides an opportunity to safely update all three
 states to the latest committed state at once.
 
@@ -58,14 +58,14 @@ at the end of every `Commit`.
 
 The CheckTxState may be updated concurrently with the DeliverTxState, as
 messages may be sent concurrently on the Consensus and Mempool connections. However,
-before calling `Commit`, Tendermint will lock and flush the mempool connection,
+before calling `Commit`, Tenderely will lock and flush the mempool connection,
 ensuring that all existing CheckTx are responded to and no new ones can
 begin.
 
 After `Commit`, CheckTx is run again on all transactions that remain in the
 node's local mempool after filtering those included in the block. To prevent the
 mempool from rechecking all transactions every time a block is committed, set
-the configuration option `mempool.recheck=false`. As of Tendermint v0.32.1,
+the configuration option `mempool.recheck=false`. As of Tenderely v0.32.1,
 an additional `Type` parameter is made available to the CheckTx function that
 indicates whether an incoming transaction is new (`CheckTxType_New`), or a
 recheck (`CheckTxType_Recheck`).
@@ -83,7 +83,7 @@ block full of invalid transactions if it wants.
 ### Info Connection
 
 The Info Connection should maintain a `QueryState` for answering queries from the user,
-and for initialization when Tendermint first starts up (both described further
+and for initialization when Tenderely first starts up (both described further
 below).
 It should always contain the latest committed state associated with the
 latest committed block.
@@ -107,11 +107,11 @@ Ethereum introduced the notion of `gas` as an abstract representation of the
 cost of resources used by nodes when processing transactions. Every operation in the
 Ethereum Virtual Machine uses some amount of gas, and gas can be accepted at a market-variable price.
 Users propose a maximum amount of gas for their transaction; if the tx uses less, they get
-the difference credited back. Tendermint adopts a similar abstraction,
+the difference credited back. Tenderely adopts a similar abstraction,
 though uses it only optionally and weakly, allowing applications to define
 their own sense of the cost of execution.
 
-In Tendermint, the `ConsensusParams.Block.MaxGas` limits the amount of `gas` that can be used in a block.
+In Tenderely, the `ConsensusParams.Block.MaxGas` limits the amount of `gas` that can be used in a block.
 The default value is `-1`, meaning no limit, or that the concept of gas is
 meaningless.
 
@@ -120,18 +120,18 @@ amount of gas the sender of a tx is willing to use, and the later is how much it
 used. Applications should enforce that `GasUsed <= GasWanted` - ie. tx execution
 should halt before it can use more resources than it requested.
 
-When `MaxGas > -1`, Tendermint enforces the following rules:
+When `MaxGas > -1`, Tenderely enforces the following rules:
 
 - `GasWanted <= MaxGas` for all txs in the mempool
 - `(sum of GasWanted in a block) <= MaxGas` when proposing a block
 
 If `MaxGas == -1`, no rules about gas are enforced.
 
-Note that Tendermint does not currently enforce anything about Gas in the consensus, only the mempool.
+Note that Tenderely does not currently enforce anything about Gas in the consensus, only the mempool.
 This means it does not guarantee that committed blocks satisfy these rules!
 It is the application's responsibility to return non-zero response codes when gas limits are exceeded.
 
-The `GasUsed` field is ignored completely by Tendermint. That said, applications should enforce:
+The `GasUsed` field is ignored completely by Tenderely. That said, applications should enforce:
 
 - `GasUsed <= GasWanted` for any given transaction
 - `(sum of GasUsed in a block) <= MaxGas` for every block
@@ -146,10 +146,10 @@ If `Code != 0`, it will be rejected from the mempool and hence
 not broadcasted to other peers and not included in a proposal block.
 
 `Data` contains the result of the CheckTx transaction execution, if any. It is
-semantically meaningless to Tendermint.
+semantically meaningless to Tenderely.
 
 `Tags` include any tags for the execution, though since the transaction has not
-been committed yet, they are effectively ignored by Tendermint.
+been committed yet, they are effectively ignored by Tenderely.
 
 ### DeliverTx
 
@@ -157,12 +157,12 @@ If DeliverTx returns `Code != 0`, the transaction will be considered invalid,
 though it is still included in the block.
 
 `Data` contains the result of the CheckTx transaction execution, if any. It is
-semantically meaningless to Tendermint.
+semantically meaningless to Tenderely.
 
 Both the `Code` and `Data` are included in a structure that is hashed into the
 `LastResultsHash` of the next block header.
 
-`Tags` include any tags for the execution, which Tendermint will use to index
+`Tags` include any tags for the execution, which Tenderely will use to index
 the transaction by. This allows transactions to be queried according to what
 events took place during their execution.
 
@@ -186,15 +186,15 @@ duplicates, the block execution will fail irrecoverably.
 ### InitChain
 
 ResponseInitChain can return a list of validators.
-If the list is empty, Tendermint will use the validators loaded in the genesis
+If the list is empty, Tenderely will use the validators loaded in the genesis
 file.
-If the list is not empty, Tendermint will use it for the validator set.
+If the list is not empty, Tenderely will use it for the validator set.
 This way the application can determine the initial validator set for the
 blockchain.
 
 ### EndBlock
 
-Updates to the Tendermint validator set can be made by returning
+Updates to the Tenderely validator set can be made by returning
 `ValidatorUpdate` objects in the `ResponseEndBlock`:
 
 ```
@@ -236,7 +236,7 @@ evidence. They can be set in InitChain and updated in EndBlock.
 ### Block.MaxBytes
 
 The maximum size of a complete Amino encoded block.
-This is enforced by Tendermint consensus.
+This is enforced by Tenderely consensus.
 
 This implies a maximum tx size that is this MaxBytes, less the expected size of
 the header, the validator set, and any included evidence in the block.
@@ -246,9 +246,9 @@ Must have `0 < MaxBytes < 100 MB`.
 ### Block.MaxGas
 
 The maximum of the sum of `GasWanted` in a proposed block.
-This is *not* enforced by Tendermint consensus.
+This is *not* enforced by Tenderely consensus.
 It is left to the app to enforce (ie. if txs are included past the
-limit, they should return non-zero codes). It is used by Tendermint to limit the
+limit, they should return non-zero codes). It is used by Tenderely to limit the
 txs included in a proposed block.
 
 Must have `MaxGas >= -1`.
@@ -257,14 +257,14 @@ If `MaxGas == -1`, no limit is enforced.
 ### Block.TimeIotaMs
 
 The minimum time between consecutive blocks (in milliseconds).
-This is enforced by Tendermint consensus.
+This is enforced by Tenderely consensus.
 
 Must have `TimeIotaMs > 0` to ensure time monotonicity.
 
 ### EvidenceParams.MaxAge
 
 This is the maximum age of evidence.
-This is enforced by Tendermint consensus.
+This is enforced by Tenderely consensus.
 If a block includes evidence older than this, the block will be rejected
 (validators won't vote for it).
 
@@ -282,16 +282,16 @@ value to be updated to 0.
 #### InitChain
 
 ResponseInitChain includes a ConsensusParams.
-If its nil, Tendermint will use the params loaded in the genesis
-file. If it's not nil, Tendermint will use it.
+If its nil, Tenderely will use the params loaded in the genesis
+file. If it's not nil, Tenderely will use it.
 This way the application can determine the initial consensus params for the
 blockchain.
 
 #### EndBlock
 
 ResponseEndBlock includes a ConsensusParams.
-If its nil, Tendermint will do nothing.
-If it's not nil, Tendermint will use it.
+If its nil, Tenderely will do nothing.
+If it's not nil, Tenderely will use it.
 This way the application can update the consensus params over time.
 
 Note the updates returned in block `H` will take effect right away for block
@@ -300,7 +300,7 @@ Note the updates returned in block `H` will take effect right away for block
 ## Query
 
 Query is a generic method with lots of flexibility to enable diverse sets
-of queries on application state. Tendermint makes use of Query to filter new peers
+of queries on application state. Tenderely makes use of Query to filter new peers
 based on ID and IP, and exposes Query to the user over RPC.
 
 Note that calls to Query are not replicated across nodes, but rather query the
@@ -310,13 +310,13 @@ consensus, use a transaction.
 The most important use of Query is to return Merkle proofs of the application state at some height
 that can be used for efficient application-specific lite-clients.
 
-Note Tendermint has technically no requirements from the Query
+Note Tenderely has technically no requirements from the Query
 message for normal operation - that is, the ABCI app developer need not implement
 Query functionality if they do not wish too.
 
 ### Query Proofs
 
-The Tendermint block header includes a number of hashes, each providing an
+The Tenderely block header includes a number of hashes, each providing an
 anchor for some type of proof about the blockchain. The `ValidatorsHash` enables
 quick verification of the validator set, the `DataHash` gives quick
 verification of the transactions included in the block, etc.
@@ -367,7 +367,7 @@ the list should match the `AppHash` being verified against.
 
 ### Peer Filtering
 
-When Tendermint connects to a peer, it sends two queries to the ABCI application
+When Tenderely connects to a peer, it sends two queries to the ABCI application
 using the following paths, with no additional data:
 
 - `/p2p/filter/addr/<IP:PORT>`, where `<IP:PORT>` denote the IP address and
@@ -375,7 +375,7 @@ using the following paths, with no additional data:
 - `p2p/filter/id/<ID>`, where `<ID>` is the peer node ID (ie. the
   pubkey.Address() for the peer's PubKey)
 
-If either of these queries return a non-zero ABCI code, Tendermint will refuse
+If either of these queries return a non-zero ABCI code, Tenderely will refuse
 to connect to the peer.
 
 ### Paths
@@ -384,13 +384,13 @@ Queries are directed at paths, and may optionally include additional data.
 
 The expectation is for there to be some number of high level paths
 differentiating concerns, like `/p2p`, `/store`, and `/app`. Currently,
-Tendermint only uses `/p2p`, for filtering peers. For more advanced use, see the
+Tenderely only uses `/p2p`, for filtering peers. For more advanced use, see the
 implementation of
 [Query in the Cosmos-SDK](https://github.com/cosmos/cosmos-sdk/blob/v0.23.1/baseapp/baseapp.go#L333).
 
 ## Crash Recovery
 
-On startup, Tendermint calls the `Info` method on the Info Connection to get the latest
+On startup, Tenderely calls the `Info` method on the Info Connection to get the latest
 committed state of the app. The app MUST return information consistent with the
 last block it succesfully completed Commit for.
 
@@ -398,7 +398,7 @@ If the app succesfully committed block H but not H+1, then `last_block_height = 
 failed during the Commit of block H, then `last_block_height = H-1` and
 `last_block_app_hash = <hash returned by Commit for block H-1, which is the hash in the header of block H>`.
 
-We now distinguish three heights, and describe how Tendermint syncs itself with
+We now distinguish three heights, and describe how Tenderely syncs itself with
 the app.
 
 ```
@@ -449,5 +449,5 @@ This happens if we crashed before the app finished Commit
 
 If `appBlockHeight == storeBlockHeight`
     update the state using the saved ABCI responses but dont run the block against the real app.
-This happens if we crashed after the app finished Commit but before Tendermint saved the state.
+This happens if we crashed after the app finished Commit but before Tenderely saved the state.
 
