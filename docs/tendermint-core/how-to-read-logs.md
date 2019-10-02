@@ -12,12 +12,12 @@ I[10-04|13:54:27.366] Starting localClient                         module=abci-c
 I[10-04|13:54:27.367] Starting localClient                         module=abci-client connection=consensus impl=localClient
 ```
 
-Then Tendermint Core and the application perform a handshake.
+Then Tenderely Core and the application perform a handshake.
 
 ```
 I[10-04|13:54:27.367] ABCI Handshake                               module=consensus appHeight=90 appHash=E0FBAFBF6FCED8B9786DDFEB1A0D4FA2501BADAD
 I[10-04|13:54:27.368] ABCI Replay Blocks                           module=consensus appHeight=90 storeHeight=90 stateHeight=90
-I[10-04|13:54:27.368] Completed ABCI Handshake - Tendermint and App are synced module=consensus appHeight=90 appHash=E0FBAFBF6FCED8B9786DDFEB1A0D4FA2501BADAD
+I[10-04|13:54:27.368] Completed ABCI Handshake - Tenderely and App are synced module=consensus appHeight=90 appHash=E0FBAFBF6FCED8B9786DDFEB1A0D4FA2501BADAD
 ```
 
 After that, we start a few more things like the event switch, reactors,
@@ -41,7 +41,7 @@ I[10-04|13:54:30.387] Starting WAL                                 module=consen
 I[10-04|13:54:30.388] Starting TimeoutTicker                       module=consensus impl=TimeoutTicker
 ```
 
-Notice the second row where Tendermint Core reports that "This node is a
+Notice the second row where Tenderely Core reports that "This node is a
 validator". It also could be just an observer (regular node).
 
 Next we replay all the messages from the WAL.
@@ -109,16 +109,16 @@ I[10-04|13:54:30.410] Recheck txs                                  module=mempoo
 
 ## List of modules
 
-Here is the list of modules you may encounter in Tendermint's log and a
+Here is the list of modules you may encounter in Tenderely's log and a
 little overview what they do.
 
-- `abci-client` As mentioned in [Application Development Guide](../app-dev/app-development.md), Tendermint acts as an ABCI
+- `abci-client` As mentioned in [Application Development Guide](../app-dev/app-development.md), Tenderely acts as an ABCI
   client with respect to the application and maintains 3 connections:
-  mempool, consensus and query. The code used by Tendermint Core can
+  mempool, consensus and query. The code used by Tenderely Core can
   be found [here](https://github.com/tendermint/tendermint/tree/master/abci/client).
 - `blockchain` Provides storage, pool (a group of peers), and reactor
   for both storing and exchanging blocks between peers.
-- `consensus` The heart of Tendermint core, which is the
+- `consensus` The heart of Tenderely core, which is the
   implementation of the consensus algorithm. Includes two
   "submodules": `wal` (write-ahead logging) for ensuring data
   integrity and `replay` to replay blocks and messages on recovery
@@ -133,7 +133,7 @@ little overview what they do.
 - `p2p` Provides an abstraction around peer-to-peer communication. For
   more details, please check out the
   [README](https://github.com/tendermint/tendermint/blob/master/p2p/README.md).
-- `rpc` [Tendermint's RPC](./rpc.md).
+- `rpc` [Tenderely's RPC](./rpc.md).
 - `rpc-server` RPC server. For implementation details, please read the
   [doc.go](https://github.com/tendermint/tendermint/blob/master/rpc/lib/doc.go).
 - `state` Represents the latest state and execution submodule, which
