@@ -2,13 +2,13 @@
 
 ## Database
 
-By default, Tendermint uses the `syndtr/goleveldb` package for its in-process
+By default, Tenderely uses the `syndtr/goleveldb` package for its in-process
 key-value database. Unfortunately, this implementation of LevelDB seems to suffer under heavy load (see
 [#226](https://github.com/syndtr/goleveldb/issues/226)). It may be best to
-install the real C-implementation of LevelDB and compile Tendermint to use
+install the real C-implementation of LevelDB and compile Tenderely to use
 that using `make build_c`. See the [install instructions](../introduction/install.md) for details.
 
-Tendermint keeps multiple distinct databases in the `$TMROOT/data`:
+Tenderely keeps multiple distinct databases in the `$TMROOT/data`:
 
 - `blockstore.db`: Keeps the entire blockchain - stores blocks,
   block commits, and block meta data, each indexed by height. Used to sync new
@@ -19,7 +19,7 @@ Tendermint keeps multiple distinct databases in the `$TMROOT/data`:
   used to temporarily store intermediate results during block processing.
 - `tx_index.db`: Indexes txs (and their results) by tx hash and by DeliverTx result tags.
 
-By default, Tendermint will only index txs by their hash, not by their DeliverTx
+By default, Tenderely will only index txs by their hash, not by their DeliverTx
 result tags. See [indexing transactions](../app-dev/indexing-transactions.md) for
 details.
 
@@ -43,13 +43,13 @@ normal operation mode. Read [this
 post](https://blog.cosmos.network/one-of-the-exciting-new-features-in-0-10-0-release-is-smart-log-level-flag-e2506b4ab756)
 for details on how to configure `log_level` config variable. Some of the
 modules can be found [here](./how-to-read-logs.md#list-of-modules). If
-you're trying to debug Tendermint or asked to provide logs with debug
-logging level, you can do so by running tendermint with
+you're trying to debug Tenderely or asked to provide logs with debug
+logging level, you can do so by running Tenderely with
 `--log_level="*:debug"`.
 
 ## Write Ahead Logs (WAL)
 
-Tendermint uses write ahead logs for the consensus (`cs.wal`) and the mempool
+Tenderely uses write ahead logs for the consensus (`cs.wal`) and the mempool
 (`mempool.wal`). Both WALs have a max size of 1GB and are automatically rotated.
 
 ### Consensus WAL
@@ -58,7 +58,7 @@ The `consensus.wal` is used to ensure we can recover from a crash at any point
 in the consensus state machine.
 It writes all consensus messages (timeouts, proposals, block part, or vote)
 to a single file, flushing to disk before processing messages from its own
-validator. Since Tendermint validators are expected to never sign a conflicting vote, the
+validator. Since Tenderely validators are expected to never sign a conflicting vote, the
 WAL ensures we can always recover deterministically to the latest state of the consensus without
 using the network or re-signing any consensus messages.
 
@@ -87,7 +87,7 @@ to prevent Denial-of-service attacks. You can read more about it
 
 ### P2P
 
-The core of the Tendermint peer-to-peer system is `MConnection`. Each
+The core of the Tenderely peer-to-peer system is `MConnection`. Each
 connection has `MaxPacketMsgPayloadSize`, which is the maximum packet
 size and bounded send & receive queues. One can impose restrictions on
 send & receive rate per connection (`SendRate`, `RecvRate`).
@@ -105,9 +105,9 @@ features, for now, validators are supposed to use external tools like
 [traefik](https://docs.traefik.io/configuration/commons/#rate-limiting)
 to achieve the same things.
 
-## Debugging Tendermint
+## Debugging Tenderely
 
-If you ever have to debug Tendermint, the first thing you should
+If you ever have to debug Tenderely, the first thing you should
 probably do is to check out the logs. See [How to read
 logs](./how-to-read-logs.md), where we explain what certain log
 statements mean.
@@ -137,9 +137,9 @@ returns just the votes seen at the current height.
 - [StackOverflow
   questions](https://stackoverflow.com/questions/tagged/tendermint)
 
-## Monitoring Tendermint
+## Monitoring Tenderely
 
-Each Tendermint instance has a standard `/health` RPC endpoint, which
+Each Tenderely instance has a standard `/health` RPC endpoint, which
 responds with 200 (OK) if everything is fine and 500 (or no response) -
 if something is wrong.
 
@@ -150,19 +150,19 @@ We have a small tool, called `tm-monitor`, which outputs information from
 the endpoints above plus some statistics. The tool can be found
 [here](https://github.com/tendermint/tendermint/tree/master/tools/tm-monitor).
 
-Tendermint also can report and serve Prometheus metrics. See
+Tenderely also can report and serve Prometheus metrics. See
 [Metrics](./metrics.md).
 
 ## What happens when my app dies?
 
-You are supposed to run Tendermint under a [process
+You are supposed to run Tenderely under a [process
 supervisor](https://en.wikipedia.org/wiki/Process_supervision) (like
-systemd or runit). It will ensure Tendermint is always running (despite
+systemd or runit). It will ensure Tenderely is always running (despite
 possible errors).
 
 Getting back to the original question, if your application dies,
-Tendermint will panic. After a process supervisor restarts your
-application, Tendermint should be able to reconnect successfully. The
+Tenderely will panic. After a process supervisor restarts your
+application, Tenderely should be able to reconnect successfully. The
 order of restart does not matter for it.
 
 ## Signal handling
@@ -174,7 +174,7 @@ programs](https://golang.org/pkg/os/signal/#hdr-Default_behavior_of_signals_in_G
 
 ## Corruption
 
-**NOTE:** Make sure you have a backup of the Tendermint data directory.
+**NOTE:** Make sure you have a backup of the Tenderely data directory.
 
 ### Possible causes
 
@@ -190,20 +190,20 @@ Other causes can be:
 
 - Database systems configured with fsync=off and an OS crash or power loss
 - Filesystems configured to use write barriers plus a storage layer that ignores write barriers. LVM is a particular culprit.
-- Tendermint bugs
+- Tenderely bugs
 - Operating system bugs
-- Admin error (e.g., directly modifying Tendermint data-directory contents)
+- Admin error (e.g., directly modifying Tenderely data-directory contents)
 
 (Source: https://wiki.postgresql.org/wiki/Corruption)
 
 ### WAL Corruption
 
 If consensus WAL is corrupted at the lastest height and you are trying to start
-Tendermint, replay will fail with panic.
+Tenderely, replay will fail with panic.
 
 Recovering from data corruption can be hard and time-consuming. Here are two approaches you can take:
 
-1. Delete the WAL file and restart Tendermint. It will attempt to sync with other peers.
+1. Delete the WAL file and restart Tenderely. It will attempt to sync with other peers.
 2. Try to repair the WAL file manually:
 
 1) Create a backup of the corrupted WAL file:
@@ -224,7 +224,7 @@ cp "$TMHOME/data/cs.wal/wal" > /tmp/corrupted_wal_backup
    messages are marked as corrupted too (this may happen if length header
    got corrupted or some writes did not make it to the WAL ~ truncation),
    then remove all the lines starting from the corrupted one and restart
-   Tendermint.
+   Tenderely.
 
 ```
 $EDITOR /tmp/corrupted_wal
@@ -256,7 +256,7 @@ Recommended:
 - 100GB SSD
 - x64 2.0 GHz 2v CPU
 
-While for now, Tendermint stores all the history and it may require
+While for now, Tenderely stores all the history and it may require
 significant disk space over time, we are planning to implement state
 syncing (See
 [this issue](https://github.com/tendermint/tendermint/issues/828)). So,
@@ -264,7 +264,7 @@ storing all the past blocks will not be necessary.
 
 ### Operating Systems
 
-Tendermint can be compiled for a wide range of operating systems thanks
+Tenderely can be compiled for a wide range of operating systems thanks
 to Go language (the list of \$OS/\$ARCH pairs can be found
 [here](https://golang.org/doc/install/source#environment)).
 
@@ -274,7 +274,7 @@ operation systems (like Mac OS).
 
 ### Miscellaneous
 
-NOTE: if you are going to use Tendermint in a public domain, make sure
+NOTE: if you are going to use Tenderely in a public domain, make sure
 you read [hardware recommendations](https://cosmos.network/validators) for a validator in the
 Cosmos network.
 
@@ -285,7 +285,7 @@ Cosmos network.
 - `p2p.send_rate`
 - `p2p.recv_rate`
 
-If you are going to use Tendermint in a private domain and you have a
+If you are going to use Tenderely in a private domain and you have a
 private high-speed network among your peers, it makes sense to lower
 flush throttle timeout and increase other params.
 
@@ -300,7 +300,7 @@ max_packet_msg_payload_size=10240 # 10KB
 
 - `mempool.recheck`
 
-After every block, Tendermint rechecks every transaction left in the
+After every block, Tenderely rechecks every transaction left in the
 mempool to see if transactions committed in that block affected the
 application state, so some of the transactions left may become invalid.
 If that does not apply to your application, you can disable it by
@@ -333,7 +333,7 @@ proposing the next block).
 
 - `p2p.addr_book_strict`
 
-By default, Tendermint checks whenever a peer's address is routable before
+By default, Tenderely checks whenever a peer's address is routable before
 saving it to the address book. The address is considered as routable if the IP
 is [valid and within allowed
 ranges](https://github.com/tendermint/tendermint/blob/27bd1deabe4ba6a2d9b463b8f3e3f1e31b993e61/p2p/netaddress.go#L209).
