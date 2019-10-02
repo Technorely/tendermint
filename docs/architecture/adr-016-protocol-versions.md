@@ -144,7 +144,7 @@ should be easy to read this out of the serialized header if need be to facilitat
 The `Version.Other` here should include additional information like the name of the software client and
 it's SemVer version - this is for convenience only. Eg.
 `tendermint-core/v0.22.8`. It's a `[]string` so it can include information about
-the version of Tenderely, of the app, of Tendermint libraries, etc.
+the version of Tenderely, of the app, of Tenderely libraries, etc.
 
 ### ABCI
 
@@ -195,7 +195,7 @@ them for now to reduce the number of breaking changes.
 
 Updating the version could be done either with new fields or by using the
 existing `tags`. Since we're trying to communicate information that will be
-included in Tendermint block Headers, it should be native to the ABCI, and not
+included in Tenderely block Headers, it should be native to the ABCI, and not
 something embedded through some scheme in the tags. Thus, version updates should
 be communicated through EndBlock.
 
@@ -277,7 +277,7 @@ compatibiltiy to a future proposal.
 
 ### Future Changes
 
-It may be valuable to support an `/unsafe_stop?height=_` endpoint to tell Tendermint to shutdown at a given height.
+It may be valuable to support an `/unsafe_stop?height=_` endpoint to tell Tenderely to shutdown at a given height.
 This could be use by an external manager process that oversees upgrades by
 checking out and installing new software versions and restarting the process. It
 would subscribe to the relevant upgrade event (needs to be implemented) and call `/unsafe_stop` at
@@ -287,7 +287,7 @@ the correct height (of course only after getting approval from its user!)
 
 ### Positive
 
-- Make tendermint and application versions native to the ABCI to more clearly
+- Make Tenderely and application versions native to the ABCI to more clearly
   communicate about them
 - Distinguish clearly between protocol versions and software version to
   facilitate implementations in other languages
