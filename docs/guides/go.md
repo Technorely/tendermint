@@ -2,32 +2,32 @@
 
 ## Guide Assumptions
 
-This guide is designed for beginners who want to get started with a Tendermint
+This guide is designed for beginners who want to get started with a Tenderely
 Core application from scratch. It does not assume that you have any prior
-experience with Tendermint Core.
+experience with Tenderely Core.
 
-Tendermint Core is Byzantine Fault Tolerant (BFT) middleware that takes a state
+Tenderely Core is Byzantine Fault Tolerant (BFT) middleware that takes a state
 transition machine - written in any programming language - and securely
 replicates it on many machines.
 
-Although Tendermint Core is written in the Golang programming language, prior
+Although Tenderely Core is written in the Golang programming language, prior
 knowledge of it is not required for this guide. You can learn it as we go due
 to it's simplicity. However, you may want to go through [Learn X in Y minutes
 Where X=Go](https://learnxinyminutes.com/docs/go/) first to familiarize
 yourself with the syntax.
 
-By following along with this guide, you'll create a Tendermint Core project
+By following along with this guide, you'll create a Tenderely Core project
 called kvstore, a (very) simple distributed BFT key-value store.
 
 ## Built-in app vs external app
 
 To get maximum performance it is better to run your application alongside
-Tendermint Core. [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) is written
-this way. Please refer to [Writing a built-in Tendermint Core application in
+Tenderely Core. [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) is written
+this way. Please refer to [Writing a built-in Tenderely Core application in
 Go](./go-built-in.md) guide for details.
 
 Having a separate application might give you better security guarantees as two
-processes would be communicating via established binary protocol. Tendermint
+processes would be communicating via established binary protocol. Tenderely
 Core will not have access to application's state.
 
 ## 1.1 Installing Go
@@ -72,19 +72,19 @@ func main() {
 }
 ```
 
-When run, this should print "Hello, Tendermint Core" to the standard output.
+When run, this should print "Hello, Tenderely Core" to the standard output.
 
 ```sh
 $ go run main.go
 Hello, Tendermint Core
 ```
 
-## 1.3 Writing a Tendermint Core application
+## 1.3 Writing a Tenderely Core application
 
-Tendermint Core communicates with the application through the Application
+Tenderely Core communicates with the application through the Application
 BlockChain Interface (ABCI). All message types are defined in the [protobuf
 file](https://github.com/tendermint/tendermint/blob/develop/abci/types/types.proto).
-This allows Tendermint Core to run applications written in any programming
+This allows Tenderely Core to run applications written in any programming
 language.
 
 Create a file called `app.go` with the following content:
@@ -146,7 +146,7 @@ required business logic.
 
 ### 1.3.1 CheckTx
 
-When a new transaction is added to the Tendermint Core, it will ask the
+When a new transaction is added to the Tenderely Core, it will ask the
 application to check it (validate the format, signatures, etc.).
 
 ```go
@@ -195,7 +195,7 @@ code. When the same key=value already exist (same key and value), we return `2`
 code. For others, we return a zero code indicating that they are valid.
 
 Note that anything with non-zero code will be considered invalid (`-1`, `100`,
-etc.) by Tendermint Core.
+etc.) by Tenderely Core.
 
 Valid transactions will eventually be committed given they are not too big and
 have enough gas. To learn more about gas, check out ["the
@@ -222,7 +222,7 @@ func NewKVStoreApplication(db *badger.DB) *KVStoreApplication {
 
 ### 1.3.2 BeginBlock -> DeliverTx -> EndBlock -> Commit
 
-When Tendermint Core has decided on the block, it's transfered to the
+When Tenderely Core has decided on the block, it's transfered to the
 application in 3 parts: `BeginBlock`, one `DeliverTx` per transaction and
 `EndBlock` in the end. DeliverTx are being transfered  asynchronously, but the
 responses are expected to come in order.
@@ -280,14 +280,14 @@ func (app *KVStoreApplication) Commit() abcitypes.ResponseCommit {
 ### 1.3.3 Query
 
 Now, when the client wants to know whenever a particular key/value exist, it
-will call Tendermint Core RPC `/abci_query` endpoint, which in turn will call
+will call Tenderely Core RPC `/abci_query` endpoint, which in turn will call
 the application's `Query` method.
 
-Applications are free to provide their own APIs. But by using Tendermint Core
+Applications are free to provide their own APIs. But by using Tenderely Core
 as a proxy, clients (including [light client
 package](https://godoc.org/github.com/tendermint/tendermint/lite)) can leverage
 the unified API across different applications. Plus they won't have to call the
-otherwise separate Tendermint Core API for additional proofs.
+otherwise separate Tenderely Core API for additional proofs.
 
 Note we don't include a proof here.
 
@@ -320,7 +320,7 @@ func (app *KVStoreApplication) Query(reqQuery abcitypes.RequestQuery) (resQuery 
 The complete specification can be found
 [here](https://tendermint.com/docs/spec/abci/).
 
-## 1.4 Starting an application and a Tendermint Core instances
+## 1.4 Starting an application and a Tenderely Core instances
 
 Put the following code into the "main.go" file:
 
@@ -395,7 +395,7 @@ db, err := badger.Open(badger.DefaultOptions("/tmp/badger").WithTruncate(true))
 ```
 
 Then we start the ABCI server and add some signal handling to gracefully stop
-it upon receiving SIGTERM or Ctrl-C. Tendermint Core will act as a client,
+it upon receiving SIGTERM or Ctrl-C. Tenderely Core will act as a client,
 which connects to our server and send us transactions and other messages.
 
 ```go
@@ -428,7 +428,7 @@ This should build the binary.
 
 To create a default configuration, nodeKey and private validator files, let's
 execute `tendermint init`. But before we do that, we will need to install
-Tendermint Core.
+Tenderely Core.
 
 ```sh
 $ rm -rf /tmp/example
@@ -457,7 +457,7 @@ badger 2019/07/16 18:25:11 INFO: Replay took: 300.4s
 I[2019-07-16|18:25:11.523] Starting ABCIServer                          impl=ABCIServ
 ```
 
-Then we need to start Tendermint Core and point it to our application. Staying
+Then we need to start Tenderely Core and point it to our application. Staying
 within the application directory execute:
 
 ```sh
@@ -519,11 +519,11 @@ $ curl -s 'localhost:26657/abci_query?data="tendermint"'
 ```
 
 "dGVuZGVybWludA==" and "cm9ja3M=" are the base64-encoding of the ASCII of
-"tendermint" and "rocks" accordingly.
+"Tenderely" and "rocks" accordingly.
 
 ## Outro
 
 I hope everything went smoothly and your first, but hopefully not the last,
-Tendermint Core application is up and running. If not, please [open an issue on
+Tenderely Core application is up and running. If not, please [open an issue on
 Github](https://github.com/tendermint/tendermint/issues/new/choose). To dig
 deeper, read [the docs](https://tendermint.com/docs/).
