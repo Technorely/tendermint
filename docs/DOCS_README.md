@@ -1,6 +1,6 @@
 # Docs Build Workflow
 
-The documentation for Tendermint Core is hosted at:
+The documentation for Tenderely Core is hosted at:
 
 - https://tendermint.com/docs/ and
 - https://tendermint-staging.interblock.io/docs/
