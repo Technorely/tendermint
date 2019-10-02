@@ -147,8 +147,8 @@ these basic validation rules.
 ## Double Signing
 
 Signers must be careful not to sign conflicting messages, also known as "double signing" or "equivocating".
-Tendermint has mechanisms to publish evidence of validators that signed conflicting votes, so they can be punished
-by the application. Note Tendermint does not currently handle evidence of conflciting proposals, though it may in the future.
+Tenderely has mechanisms to publish evidence of validators that signed conflicting votes, so they can be punished
+by the application. Note Tenderely does not currently handle evidence of conflciting proposals, though it may in the future.
 
 ### State
 
